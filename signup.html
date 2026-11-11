@@ -223,12 +223,11 @@ makerForm.addEventListener('submit', e => {
 
     residence: document.querySelector('#residence').value,
 
-    category:
-      document.querySelector('input[name="category"]:checked').value,
+    category: document.querySelector('#category').value,
 
     contentLanguage: document.querySelector('#language').value,
 
-    referralCode: document.querySelector('#referral').value.trim(),
+    referralCode: document.querySelector('#referral')?.value.trim() || '',
 
     marketingConsent:
       document.querySelector('#marketing').checked
@@ -247,7 +246,8 @@ makerForm.addEventListener('submit', e => {
 });
 
 // 카카오 로그인은 시연용 안내
-document.querySelector('#kakao').addEventListener('click', () => {
+const kakaoButton = document.querySelector('#kakao');
+if (kakaoButton) kakaoButton.addEventListener('click', () => {
   msg.textContent = '카카오 로그인은 실제 연동이 필요한 기능입니다.';
 });
 </script>

@@ -39,31 +39,77 @@
   </nav>
 </header>
 <main>
-  <section class="page-hero">
+  <section class="page-hero maker-hero">
     <div class="eyebrow">FOR MAKERS · FOODiing</div>
-    <h1>당신의 먹거리에 담긴<br class="br-d"> 이야기를 들려주세요.</h1>
-    <p>정성껏 만든 먹거리가 필요한 사람을 만나도록 FOODiing이 함께합니다.<br class="br-d"> 프로젝트 정보를 남겨주시면 담당자가 안내해 드릴게요.</p>
+    <h1>프로젝트 시작하기</h1>
+    <p>프로젝트 진행에 필요한 정보를 입력해 주세요.</p>
   </section>
 
-  <section class="steps" aria-label="진행 단계">
-    <article class="step"><b>01 · 제안</b><h2>프로젝트 소개</h2><p>생산자와 먹거리, 필요한 펀딩 내용을 알려주세요.</p></article>
-    <article class="step"><b>02 · 상담</b><h2>함께 준비</h2><p>담당자가 연락드려 진행 일정과 내용을 논의합니다.</p></article>
-    <article class="step"><b>03 · 시작</b><h2>후원자 만나기</h2><p>프로젝트를 공개하고 응원을 모읍니다.</p></article>
-  </section>
+  <form class="panel maker-form" id="project-form">
+    <section class="maker-section">
+      <h2>제품 및 생산 정보 <span class="required">필수</span></h2>
+      <div class="info-box"><span class="info-icon" aria-hidden="true">i</span><div><strong>펀딩 목표 금액 자동 산출</strong><p>제품의 재료와 생산 정보를 입력하면 예상 제조원가를 계산하고 적정 펀딩 목표 금액을 제안해 드려요.</p></div></div>
+      <div class="field"><label for="product-name">제품명 <span class="required">필수</span></label><input id="product-name" type="text" placeholder="예: 두바이 쫀득 쿠키" required></div>
+      <div class="field">
+        <label>재료 정보 <span class="required">필수</span></label>
+        <p class="field-help">제품 1개를 만드는 데 필요한 재료별 사용량과 단위당 가격을 입력해 주세요. 예: 피스타치오 10g, 1g당 20원</p>
+        <div id="ingredient-list"><div class="ingredient-row">
+          <input class="ingredient-name" type="text" placeholder="재료명" aria-label="재료명" required>
+          <input class="ingredient-amount" type="number" min="0.01" step="any" placeholder="사용량" aria-label="제품 1개당 사용량" required>
+          <select class="ingredient-unit" aria-label="사용 단위"><option value="g">g</option><option value="ml">ml</option><option value="개">개</option></select>
+          <input class="ingredient-price" type="number" min="0" step="any" placeholder="단위당 가격(원)" aria-label="단위당 가격" required>
+          <button type="button" class="remove-ingredient" aria-label="재료 삭제">×</button>
+        </div></div>
+        <button type="button" class="btn btn-outline" id="add-ingredient">+ 재료 추가</button>
+      </div>
+      <div class="field"><label for="production-quantity">예상 생산 수량 <span class="required">필수</span></label><div class="amount-input"><input id="production-quantity" type="number" min="1" step="1" placeholder="예: 10000" required><span>개</span></div></div>
+      <div class="fields">
+        <div class="field"><label for="packaging-cost">개당 포장비 (원)</label><input id="packaging-cost" type="number" min="0" value="0" required></div>
+        <div class="field"><label for="labor-cost">총 생산 인건비 (원)</label><input id="labor-cost" type="number" min="0" value="0" required></div>
+        <div class="field"><label for="overhead-cost">기타 제조·운영 비용 (원)</label><input id="overhead-cost" type="number" min="0" value="0" required></div>
+        <div class="field"><label for="shipping-cost">개당 배송비 (원)</label><input id="shipping-cost" type="number" min="0" value="0" required></div>
+      </div>
+      <div class="cost-result" id="cost-result" aria-live="polite">
+        <div class="cost-result-header"><strong>예상 제조원가 및 펀딩 금액</strong><span>자동 계산</span></div>
+        <div class="cost-line"><span>제품 1개당 재료비</span><strong id="unit-ingredient-cost">0원</strong></div>
+        <div class="cost-line"><span>전체 재료비</span><strong id="total-ingredient-cost">0원</strong></div>
+        <div class="cost-line"><span>전체 포장비</span><strong id="total-packaging-cost">0원</strong></div>
+        <div class="cost-line"><span>인건비 및 기타 비용</span><strong id="total-extra-cost">0원</strong></div>
+        <div class="cost-line"><span>전체 배송비</span><strong id="total-shipping-cost">0원</strong></div>
+        <div class="cost-line total"><span>예상 총 필요 금액</span><strong id="total-production-cost">0원</strong></div>
+        <div class="recommended-goal"><span>FOODiing 추천 펀딩 목표 금액</span><strong id="recommended-goal">0원</strong><small>예상 총비용과 운영 예비분 10%를 반영한 추천 금액입니다.</small></div>
+      </div>
+      <p class="field-help">※ 입력한 정보로 산출된 금액은 예상치이며, 실제 펀딩 목표 금액은 제조사 검토 및 생산 견적 확인 후 확정됩니다.</p>
+    </section>
 
-  <form class="panel" id="project-form">
-    <h2>프로젝트 상담 신청</h2>
-    <div class="fields">
-      <div class="field"><label for="name">담당자 이름 *</label><input id="name" required placeholder="이름" autocomplete="name"></div>
-      <div class="field"><label for="phone">연락처 *</label><input id="phone" type="tel" required placeholder="010-0000-0000" autocomplete="tel"></div>
-      <div class="field"><label for="email">이메일 *</label><input id="email" type="email" required placeholder="name@example.com" autocomplete="email"></div>
-      <div class="field"><label for="category">먹거리 카테고리 *</label><select id="category" required><option value="">선택해 주세요</option><option>베이커리</option><option>디저트</option><option>밀키트</option><option>도시락</option><option>그 외</option></select></div>
-      <div class="field full"><label for="product">프로젝트 / 제품명 *</label><input id="product" required placeholder="어떤 먹거리를 소개하고 싶으신가요?"></div>
-      <div class="field full"><label for="story">프로젝트 소개</label><textarea id="story" placeholder="생산자와 제품에 담긴 이야기를 적어주세요."></textarea></div>
-    </div>
-    <button class="btn btn-gold" type="submit">상담 신청하기 ↗</button>
-    <p class="hint">제출 기능은 Supabase 연결 후 사용할 수 있습니다. 입력하신 내용은 화면에서 전송되지 않습니다.</p>
-    <div class="message" id="message" aria-live="polite"></div>
+    <section class="maker-section">
+      <h2>메이커 유형 <span class="required">필수</span></h2>
+      <div class="field"><label for="maker-country">사업자 등록증 기준 국가</label><div class="country-row"><span class="flag" aria-hidden="true">🇰🇷</span><select id="maker-country" required><option value="KR">한국 (KR)</option><option value="US">미국 (US)</option><option value="JP">일본 (JP)</option><option value="ETC">기타</option></select><span class="country-change">국가 변경</span></div></div>
+      <fieldset class="fieldset"><legend>사업자 유형 <span class="required">필수</span></legend><div class="choice-group"><label class="choice"><input type="radio" name="business-type" value="개인" required><span>개인</span></label><label class="choice"><input type="radio" name="business-type" value="개인사업자"><span>개인사업자</span></label><label class="choice"><input type="radio" name="business-type" value="법인사업자"><span>법인사업자</span></label></div></fieldset>
+      <div class="field"><label for="identity-file">신분증</label><label class="upload-control" for="identity-file"><span>첨부 파일 업로드</span><strong>업로드</strong></label><input class="visually-hidden" id="identity-file" type="file" accept="image/*,.pdf"></div>
+      <div class="fields"><div class="field"><label for="representative">대표자명</label><input id="representative" autocomplete="name" placeholder="대표자명을 입력해 주세요" required></div><div class="field"><label for="tax-email">세금계산서 발행 이메일</label><input id="tax-email" type="email" placeholder="name@example.com"></div><div class="field"><label for="representative-email">대표자 이메일</label><input id="representative-email" type="email" placeholder="name@example.com" required></div><div class="field"><label for="residence">거주지 <span class="required">*</span></label><select id="residence" required><option value="">선택해 주세요</option><option>서울특별시</option><option selected>경기도</option><option>부산광역시</option><option>인천광역시</option><option>강원특별자치도</option><option>충청북도</option><option>충청남도</option><option>전북특별자치도</option><option>전라남도</option><option>경상북도</option><option>경상남도</option><option>제주특별자치도</option><option>해외</option></select></div></div>
+    </section>
+
+    <section class="maker-section">
+      <h2>카테고리</h2>
+      <div class="info-box"><span class="info-icon" aria-hidden="true">i</span><div><strong>카테고리 정보</strong></div></div>
+      <div class="field"><label for="main-category">대표 카테고리 <span class="required">필수</span></label><p class="field-help">카테고리를 상세하게 선택할수록 서포터가 프로젝트를 더 잘 찾을 수 있어요. 중분류에 원하는 항목이 없다면 해당 없음을 선택해 주세요.</p><select id="main-category" required><option value="">카테고리를 선택해 주세요</option><option>푸드 &gt; 디저트·간식</option><option>푸드 &gt; 베이커리</option><option>푸드 &gt; 음료·커피</option><option>푸드 &gt; 간편식</option><option>푸드 &gt; 밀키트</option><option>푸드 &gt; 해당 없음</option></select></div>
+      <div class="field"><label for="sub-category">보조 카테고리 <span class="optional">(선택)</span></label><p class="field-help">프로젝트를 더 많은 카테고리에 노출할 수 있도록 선택해 주세요.</p><select id="sub-category"><option value="">카테고리 선택</option><option>푸드 &gt; 디저트·간식</option><option>푸드 &gt; 베이커리</option><option>푸드 &gt; 음료·커피</option><option>푸드 &gt; 간편식</option><option>푸드 &gt; 밀키트</option></select></div>
+    </section>
+
+    <section class="maker-section">
+      <h2>🚫 성인 인증 필요 여부 <span class="optional">(선택)</span></h2>
+      <a class="guide-link" href="https://www.wadiz.io/web/maker/makercenter/board/basic/1438" target="_blank" rel="noreferrer">성인 인증 프로젝트 가이드 ↗</a>
+      <p class="field-help">19세 이상만 사용할 수 있는 리워드가 포함된 경우 선택해 주세요. 선택 시 성인 인증을 완료한 서포터만 프로젝트에 참여할 수 있어요.</p>
+      <label class="check-card"><input id="adult-required" type="checkbox"><span><strong>성인 인증이 필요한 리워드가 포함되어 있어요.</strong><small>무알콜 주류 및 전통주, 레이저 포인트, 성인용품·서비스, 담배 등 성인 인증이 필요한 리워드가 1개 이상 포함되어 있어요.</small></span></label>
+    </section>
+
+    <section class="maker-section">
+      <h2>배송 유형 <span class="required">필수</span></h2>
+      <div class="shipping-options"><label class="shipping-card"><input type="radio" name="shipping" value="배송 있음" required><span><strong>배송 있음</strong><small>프로젝트에 택배, 화물, 직접 배송 등의 방식으로 전달하는 리워드가 1개 이상 포함되어 있어요.</small></span></label><label class="shipping-card"><input type="radio" name="shipping" value="배송 없이 전달"><span><strong>배송 없이 전달</strong><small>모든 리워드를 파일 전송, 예매권, 바우처, 픽업 등의 방식으로 배송 없이 전달해요.</small></span></label></div>
+    </section>
+
+    <div class="maker-submit"><button class="btn btn-gold" type="submit">저장하고 다음</button><p class="hint">입력한 내용은 현재 브라우저에 임시 저장됩니다.</p><div class="message" id="message" aria-live="polite"></div></div>
   </form>
 </main>
 <footer class="footer">
@@ -73,7 +119,100 @@
 </div>
 <script src="script.js"></script>
 <script>
-document.querySelector('#project-form').addEventListener('submit', e => { e.preventDefault(); document.querySelector('#message').textContent = '상담 신청 전송은 Supabase 연결 후 사용할 수 있어요.'; });
+const form = document.querySelector('#project-form');
+const ingredientList = document.querySelector('#ingredient-list');
+const formatWon = value => `${Math.round(value).toLocaleString('ko-KR')}원`;
+
+document.querySelector('#add-ingredient').addEventListener('click', () => {
+  const row = document.createElement('div');
+  row.className = 'ingredient-row';
+  row.innerHTML = `<input class="ingredient-name" type="text" placeholder="재료명" aria-label="재료명" required>
+    <input class="ingredient-amount" type="number" min="0.01" step="any" placeholder="사용량" aria-label="제품 1개당 사용량" required>
+    <select class="ingredient-unit" aria-label="사용 단위"><option value="g">g</option><option value="ml">ml</option><option value="개">개</option></select>
+    <input class="ingredient-price" type="number" min="0" step="any" placeholder="단위당 가격(원)" aria-label="단위당 가격" required>
+    <button type="button" class="remove-ingredient" aria-label="재료 삭제">×</button>`;
+  ingredientList.appendChild(row);
+  calculateCost();
+});
+
+ingredientList.addEventListener('click', event => {
+  if (!event.target.classList.contains('remove-ingredient')) return;
+  if (ingredientList.children.length === 1) {
+    alert('최소 1개의 재료는 입력해야 합니다.');
+    return;
+  }
+  event.target.closest('.ingredient-row').remove();
+  calculateCost();
+});
+
+function calculateCost() {
+  const quantity = Number(document.querySelector('#production-quantity').value) || 0;
+  let ingredientPerUnit = 0;
+  document.querySelectorAll('.ingredient-row').forEach(row => {
+    ingredientPerUnit += (Number(row.querySelector('.ingredient-amount').value) || 0) *
+      (Number(row.querySelector('.ingredient-price').value) || 0);
+  });
+  const totalIngredient = ingredientPerUnit * quantity;
+  const packaging = (Number(document.querySelector('#packaging-cost').value) || 0) * quantity;
+  const labor = Number(document.querySelector('#labor-cost').value) || 0;
+  const overhead = Number(document.querySelector('#overhead-cost').value) || 0;
+  const shipping = (Number(document.querySelector('#shipping-cost').value) || 0) * quantity;
+  const total = totalIngredient + packaging + labor + overhead + shipping;
+  const recommended = total > 0 ? Math.ceil((total / 0.9) / 10000) * 10000 : 0;
+
+  document.querySelector('#unit-ingredient-cost').textContent = formatWon(ingredientPerUnit);
+  document.querySelector('#total-ingredient-cost').textContent = formatWon(totalIngredient);
+  document.querySelector('#total-packaging-cost').textContent = formatWon(packaging);
+  document.querySelector('#total-extra-cost').textContent = formatWon(labor + overhead);
+  document.querySelector('#total-shipping-cost').textContent = formatWon(shipping);
+  document.querySelector('#total-production-cost').textContent = formatWon(total);
+  document.querySelector('#recommended-goal').textContent = formatWon(recommended);
+  return { ingredientPerUnit, totalIngredient, packaging, labor, overhead, shipping, total, recommended };
+}
+
+form.addEventListener('input', calculateCost);
+form.addEventListener('change', calculateCost);
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!form.reportValidity()) return;
+  const costs = calculateCost();
+  if (costs.total <= 0 || costs.recommended <= 0) {
+    alert('제품 및 생산 정보를 입력해 주세요.');
+    return;
+  }
+  const projectMakerData = {
+    productName: document.querySelector('#product-name').value.trim(),
+    ingredients: [...document.querySelectorAll('.ingredient-row')].map(row => ({
+      name: row.querySelector('.ingredient-name').value.trim(),
+      amount: Number(row.querySelector('.ingredient-amount').value),
+      unit: row.querySelector('.ingredient-unit').value,
+      unitPrice: Number(row.querySelector('.ingredient-price').value)
+    })),
+    productionQuantity: Number(document.querySelector('#production-quantity').value),
+    packagingCost: Number(document.querySelector('#packaging-cost').value),
+    laborCost: Number(document.querySelector('#labor-cost').value),
+    overheadCost: Number(document.querySelector('#overhead-cost').value),
+    shippingCost: Number(document.querySelector('#shipping-cost').value),
+    costs,
+    goalAmount: costs.recommended,
+    country: document.querySelector('#maker-country').value,
+    businessType: document.querySelector('input[name="business-type"]:checked').value,
+    identityFileName: document.querySelector('#identity-file').files[0]?.name || '',
+    representative: document.querySelector('#representative').value.trim(),
+    taxEmail: document.querySelector('#tax-email').value.trim(),
+    representativeEmail: document.querySelector('#representative-email').value.trim(),
+    residence: document.querySelector('#residence').value,
+    mainCategory: document.querySelector('#main-category').value,
+    subCategory: document.querySelector('#sub-category').value,
+    adultRequired: document.querySelector('#adult-required').checked,
+    shipping: document.querySelector('input[name="shipping"]:checked').value,
+    createdAt: new Date().toISOString()
+  };
+  localStorage.setItem('foodiing-project-maker', JSON.stringify(projectMakerData));
+  document.querySelector('#message').textContent = `정보가 저장되었습니다. 추천 펀딩 목표 금액은 ${formatWon(costs.recommended)}입니다.`;
+});
+
+calculateCost();
 </script>
 </body>
 </html>
