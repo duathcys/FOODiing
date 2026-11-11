@@ -48,7 +48,7 @@
   <form class="panel maker-form" id="project-form">
     <section class="maker-section">
       <h2>제품 및 생산 정보 <span class="required">필수</span></h2>
-      <div class="info-box"><span class="info-icon" aria-hidden="true">i</span><div><strong>펀딩 목표 금액 자동 산출</strong><p>제품의 재료와 생산 정보를 입력하면 예상 제조원가를 계산하고 적정 펀딩 목표 금액을 제안해 드려요.</p></div></div>
+      <div class="info-box"><span class="info-icon" aria-hidden="true">i</span><div><strong>펀딩 목표 금액 자동 산출</strong><p>제품명과 재료를 입력하면 FOODiing의 카테고리별 표준 제조원가와 최소 생산 기준을 반영해 권장 펀딩 목표 금액을 계산해 드려요.</p></div></div>
       <div class="field"><label for="product-name">제품명 <span class="required">필수</span></label><input id="product-name" type="text" placeholder="예: 두바이 쫀득 쿠키" required></div>
       <div class="field">
         <label>재료 정보 <span class="required">필수</span></label>
@@ -62,24 +62,25 @@
         </div></div>
         <button type="button" class="btn btn-outline" id="add-ingredient">+ 재료 추가</button>
       </div>
-      <div class="field"><label for="production-quantity">예상 생산 수량 <span class="required">필수</span></label><div class="amount-input"><input id="production-quantity" type="number" min="1" step="1" placeholder="예: 10000" required><span>개</span></div></div>
-      <div class="fields">
-        <div class="field"><label for="packaging-cost">개당 포장비 (원)</label><input id="packaging-cost" type="number" min="0" value="0" required></div>
-        <div class="field"><label for="labor-cost">총 생산 인건비 (원)</label><input id="labor-cost" type="number" min="0" value="0" required></div>
-        <div class="field"><label for="overhead-cost">기타 제조·운영 비용 (원)</label><input id="overhead-cost" type="number" min="0" value="0" required></div>
-        <div class="field"><label for="shipping-cost">개당 배송비 (원)</label><input id="shipping-cost" type="number" min="0" value="0" required></div>
-      </div>
       <div class="cost-result" id="cost-result" aria-live="polite">
-        <div class="cost-result-header"><strong>예상 제조원가 및 펀딩 금액</strong><span>자동 계산</span></div>
-        <div class="cost-line"><span>제품 1개당 재료비</span><strong id="unit-ingredient-cost">0원</strong></div>
-        <div class="cost-line"><span>전체 재료비</span><strong id="total-ingredient-cost">0원</strong></div>
-        <div class="cost-line"><span>전체 포장비</span><strong id="total-packaging-cost">0원</strong></div>
-        <div class="cost-line"><span>인건비 및 기타 비용</span><strong id="total-extra-cost">0원</strong></div>
-        <div class="cost-line"><span>전체 배송비</span><strong id="total-shipping-cost">0원</strong></div>
-        <div class="cost-line total"><span>예상 총 필요 금액</span><strong id="total-production-cost">0원</strong></div>
-        <div class="recommended-goal"><span>FOODiing 추천 펀딩 목표 금액</span><strong id="recommended-goal">0원</strong><small>예상 총비용과 운영 예비분 10%를 반영한 추천 금액입니다.</small></div>
+        <div class="cost-result-header"><strong>FOODiing 상품화 예상 결과</strong><span>내부 기준 자동 산출</span></div>
+        <div class="result-item"><span>권장 최소 생산 수량</span><strong id="recommended-quantity">산출 대기</strong></div>
+        <div class="recommended-goal"><span>FOODiing 권장 최소 펀딩 목표 금액</span><strong id="recommended-goal">산출 대기</strong><small id="goal-description">제품 정보와 카테고리를 입력하면 자동으로 산출됩니다.</small></div>
       </div>
-      <p class="field-help">※ 입력한 정보로 산출된 금액은 예상치이며, 실제 펀딩 목표 금액은 제조사 검토 및 생산 견적 확인 후 확정됩니다.</p>
+      <p class="field-help">※ 예상 결과는 FOODiing 내부 제조 기준을 바탕으로 산출한 참고 정보입니다. 실제 생산 수량과 펀딩 목표 금액은 신세계푸드의 제조 가능성 및 최종 원가 검토 후 확정됩니다.</p>
+      <div class="notice-box">
+        <div class="notice-title">
+          <span class="notice-icon" aria-hidden="true">!</span>
+          <strong>펀딩 진행 및 상품화 관련 유의사항</strong>
+        </div>
+        <ul>
+          <li>펀딩 목표 금액 100% 달성 시 상품화가 자동으로 확정되는 것은 아닙니다.</li>
+          <li>목표 달성 후 신세계푸드의 내부 심사를 통해 제조 가능 여부, 원재료 수급, 품질 및 생산 일정 등을 검토합니다.</li>
+          <li>심사 결과에 따라 실제 제조원가, 생산 수량, 제품 사양 및 최종 판매 조건을 메이커와 협의합니다.</li>
+          <li>제조 가능 여부 및 최종 조건에 대한 협의가 완료된 경우에 한해 상품화가 진행됩니다.</li>
+          <li>심사 결과 제조가 어렵거나 최종 조건에 합의하지 못하는 경우 프로젝트가 진행되지 않을 수 있습니다.</li>
+        </ul>
+      </div>
     </section>
 
     <section class="maker-section">
@@ -122,6 +123,14 @@
 const form = document.querySelector('#project-form');
 const ingredientList = document.querySelector('#ingredient-list');
 const formatWon = value => `${Math.round(value).toLocaleString('ko-KR')}원`;
+const categoryStandards = {
+  '푸드 > 디저트·간식': { processPerUnit: 700, packagingPerUnit: 300, setupCost: 300000, overheadRate: 0.08, targetMargin: 0.35, moq: 1000 },
+  '푸드 > 베이커리': { processPerUnit: 650, packagingPerUnit: 350, setupCost: 350000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 },
+  '푸드 > 음료·커피': { processPerUnit: 500, packagingPerUnit: 250, setupCost: 250000, overheadRate: 0.08, targetMargin: 0.30, moq: 2000 },
+  '푸드 > 간편식': { processPerUnit: 900, packagingPerUnit: 450, setupCost: 500000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 },
+  '푸드 > 밀키트': { processPerUnit: 1100, packagingPerUnit: 500, setupCost: 600000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 },
+  '푸드 > 해당 없음': { processPerUnit: 800, packagingPerUnit: 400, setupCost: 400000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 }
+};
 
 document.querySelector('#add-ingredient').addEventListener('click', () => {
   const row = document.createElement('div');
@@ -146,28 +155,52 @@ ingredientList.addEventListener('click', event => {
 });
 
 function calculateCost() {
-  const quantity = Number(document.querySelector('#production-quantity').value) || 0;
+  const category = document.querySelector('#main-category').value;
   let ingredientPerUnit = 0;
   document.querySelectorAll('.ingredient-row').forEach(row => {
     ingredientPerUnit += (Number(row.querySelector('.ingredient-amount').value) || 0) *
       (Number(row.querySelector('.ingredient-price').value) || 0);
   });
-  const totalIngredient = ingredientPerUnit * quantity;
-  const packaging = (Number(document.querySelector('#packaging-cost').value) || 0) * quantity;
-  const labor = Number(document.querySelector('#labor-cost').value) || 0;
-  const overhead = Number(document.querySelector('#overhead-cost').value) || 0;
-  const shipping = (Number(document.querySelector('#shipping-cost').value) || 0) * quantity;
-  const total = totalIngredient + packaging + labor + overhead + shipping;
-  const recommended = total > 0 ? Math.ceil((total / 0.9) / 10000) * 10000 : 0;
 
-  document.querySelector('#unit-ingredient-cost').textContent = formatWon(ingredientPerUnit);
-  document.querySelector('#total-ingredient-cost').textContent = formatWon(totalIngredient);
-  document.querySelector('#total-packaging-cost').textContent = formatWon(packaging);
-  document.querySelector('#total-extra-cost').textContent = formatWon(labor + overhead);
-  document.querySelector('#total-shipping-cost').textContent = formatWon(shipping);
-  document.querySelector('#total-production-cost').textContent = formatWon(total);
-  document.querySelector('#recommended-goal').textContent = formatWon(recommended);
-  return { ingredientPerUnit, totalIngredient, packaging, labor, overhead, shipping, total, recommended };
+  const standard = categoryStandards[category];
+  const quantityElement = document.querySelector('#recommended-quantity');
+  const goalElement = document.querySelector('#recommended-goal');
+  const descriptionElement = document.querySelector('#goal-description');
+
+  if (!standard) {
+    quantityElement.textContent = '산출 대기';
+    goalElement.textContent = '산출 대기';
+    descriptionElement.textContent = '카테고리를 선택하면 내부 기준에 따라 자동 산출됩니다.';
+    return null;
+  }
+
+  const processPerUnit = standard.processPerUnit + standard.packagingPerUnit;
+  const baseVariableCost = ingredientPerUnit + processPerUnit;
+  const variableCostPerUnit = baseVariableCost * (1 + standard.overheadRate);
+  const sellingPrice = Math.ceil((variableCostPerUnit / (1 - standard.targetMargin)) / 100) * 100;
+  const contributionMargin = sellingPrice - variableCostPerUnit;
+  const breakEvenQuantity = contributionMargin > 0
+    ? Math.ceil(standard.setupCost / contributionMargin)
+    : 0;
+  const recommendedQuantity = Math.ceil(Math.max(breakEvenQuantity, standard.moq) / 100) * 100;
+  const recommendedGoal = sellingPrice * recommendedQuantity;
+
+  quantityElement.textContent = recommendedQuantity.toLocaleString('ko-KR') + '개';
+  goalElement.textContent = formatWon(recommendedGoal);
+  descriptionElement.textContent = '제품 정보와 FOODiing 내부 제조 기준을 바탕으로 산출한 예상 금액입니다. 최종 금액은 제조 심사 후 확정됩니다.';
+  return {
+    category,
+    ingredientPerUnit,
+    processPerUnit,
+    variableCostPerUnit,
+    sellingPrice,
+    setupCost: standard.setupCost,
+    targetMargin: standard.targetMargin,
+    breakEvenQuantity,
+    minimumOrderQuantity: standard.moq,
+    recommendedQuantity,
+    recommendedGoal
+  };
 }
 
 form.addEventListener('input', calculateCost);
@@ -176,8 +209,8 @@ form.addEventListener('submit', event => {
   event.preventDefault();
   if (!form.reportValidity()) return;
   const costs = calculateCost();
-  if (costs.total <= 0 || costs.recommended <= 0) {
-    alert('제품 및 생산 정보를 입력해 주세요.');
+  if (!costs || costs.recommendedGoal <= 0) {
+    alert('제품 정보와 카테고리를 입력해 주세요.');
     return;
   }
   const projectMakerData = {
@@ -188,13 +221,10 @@ form.addEventListener('submit', event => {
       unit: row.querySelector('.ingredient-unit').value,
       unitPrice: Number(row.querySelector('.ingredient-price').value)
     })),
-    productionQuantity: Number(document.querySelector('#production-quantity').value),
-    packagingCost: Number(document.querySelector('#packaging-cost').value),
-    laborCost: Number(document.querySelector('#labor-cost').value),
-    overheadCost: Number(document.querySelector('#overhead-cost').value),
-    shippingCost: Number(document.querySelector('#shipping-cost').value),
+    productionQuantity: costs.recommendedQuantity,
+    categoryStandard: costs.category,
     costs,
-    goalAmount: costs.recommended,
+    goalAmount: costs.recommendedGoal,
     country: document.querySelector('#maker-country').value,
     businessType: document.querySelector('input[name="business-type"]:checked').value,
     identityFileName: document.querySelector('#identity-file').files[0]?.name || '',
@@ -209,7 +239,7 @@ form.addEventListener('submit', event => {
     createdAt: new Date().toISOString()
   };
   localStorage.setItem('foodiing-project-maker', JSON.stringify(projectMakerData));
-  document.querySelector('#message').textContent = `정보가 저장되었습니다. 추천 펀딩 목표 금액은 ${formatWon(costs.recommended)}입니다.`;
+  document.querySelector('#message').textContent = `정보가 저장되었습니다. 권장 최소 생산 수량은 ${costs.recommendedQuantity.toLocaleString('ko-KR')}개, 권장 최소 펀딩 목표 금액은 ${formatWon(costs.recommendedGoal)}입니다.`;
 });
 
 calculateCost();
