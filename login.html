@@ -66,8 +66,49 @@
 <script src="script.js"></script>
 <script>
 const msg = document.querySelector('#message');
-document.querySelector('#login-form').addEventListener('submit', e => { e.preventDefault(); msg.textContent = '로그인 인증은 Supabase 연결 후 사용할 수 있어요.'; });
-document.querySelector('#forgot').addEventListener('click', e => { e.preventDefault(); msg.textContent = '비밀번호 재설정 기능은 Supabase 연결 후 사용할 수 있어요.'; });
+document.querySelector('#login-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const email = document.querySelector('#email').value.trim().toLowerCase();
+  const password = document.querySelector('#password').value;
+
+  let users;
+  try {
+    users = JSON.parse(localStorage.getItem('foodiing-users') || '[]');
+  } catch (error) {
+    msg.textContent = '저장된 계정 정보를 읽지 못했습니다. 다시 회원가입해 주세요.';
+    return;
+  }
+
+  if (!Array.isArray(users)) {
+    msg.textContent = '저장된 계정 정보를 읽지 못했습니다. 다시 회원가입해 주세요.';
+    return;
+  }
+
+  const user = users.find(account =>
+    account.email?.trim().toLowerCase() === email && account.password === password
+  );
+
+  if (!user) {
+    msg.textContent = '이메일 또는 비밀번호를 확인해 주세요.';
+    return;
+  }
+
+  try {
+    localStorage.setItem('foodiing-current-user', JSON.stringify({
+      name: user.name,
+      email: user.email
+    }));
+  } catch (error) {
+    msg.textContent = '로그인 정보를 저장하지 못했습니다. 다시 시도해 주세요.';
+    return;
+  }
+
+  window.location.href = 'index.html';
+});
+document.querySelector('#forgot').addEventListener('click', event => {
+  event.preventDefault();
+  msg.textContent = '비밀번호 재설정은 현재 지원하지 않습니다.';
+});
 document.querySelectorAll('[data-provider]').forEach(b => b.addEventListener('click', () => msg.textContent = '카카오 로그인은 Supabase OAuth 설정 후 사용할 수 있어요.'));
 </script>
 </body>
