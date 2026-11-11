@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f6ef">
+<title>프로젝트 시작하기 | FOODiing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="announce">좋은 먹거리를 만드는 사람과, 그 가치를 알아보는 당신을 잇습니다.</div>
+<div class="wrap">
+<header class="site-header" id="site-header">
+  <div class="top">
+    <a class="brand" href="seasonal-funding.html"><img src="FOODiing-logo-transparent.png" alt="" width="112" height="56"><span class="brandname">FOODiing</span></a>
+    <div class="search" role="search"><span>어떤 제철의 맛을 찾고 있나요?</span><span aria-hidden="true">⌕</span></div>
+    <div class="actions">
+      <a class="d-only" href="login.html">로그인</a>
+      <a class="d-only" href="signup.html">회원가입</a>
+      <a class="btn btn-outline" href="project-start.html">프로젝트 시작하기</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="nav" id="site-nav" aria-label="주요 메뉴">
+      <a href="introduction.html">소개</a>
+      <a href="funding.html">펀딩</a>
+      <a href="funding.html#projects">지금 인기</a>
+      <a href="funding.html#projects">마감 임박</a>
+      <a href="introduction.html#story">생산자 이야기</a>
+      <a class="nav-aside" href="introduction.html">펀딩이 처음이라면 ↗</a>
+      <div class="nav-extra">
+        <div class="search" role="search"><span>어떤 제철의 맛을 찾고 있나요?</span><span aria-hidden="true">⌕</span></div>
+        <div class="row"><a class="btn btn-ghost" href="login.html">로그인</a><a class="btn btn-ghost" href="signup.html">회원가입</a></div>
+        <a class="btn btn-gold" href="project-start.html">프로젝트 시작하기</a>
+      </div>
+  </nav>
+</header>
+<main>
+  <section class="page-hero">
+    <div class="eyebrow">FOR MAKERS · FOODiing</div>
+    <h1>당신의 먹거리에 담긴<br class="br-d"> 이야기를 들려주세요.</h1>
+    <p>정성껏 만든 먹거리가 필요한 사람을 만나도록 FOODiing이 함께합니다.<br class="br-d"> 프로젝트 정보를 남겨주시면 담당자가 안내해 드릴게요.</p>
+  </section>
+
+  <section class="steps" aria-label="진행 단계">
+    <article class="step"><b>01 · 제안</b><h2>프로젝트 소개</h2><p>생산자와 먹거리, 필요한 펀딩 내용을 알려주세요.</p></article>
+    <article class="step"><b>02 · 상담</b><h2>함께 준비</h2><p>담당자가 연락드려 진행 일정과 내용을 논의합니다.</p></article>
+    <article class="step"><b>03 · 시작</b><h2>후원자 만나기</h2><p>프로젝트를 공개하고 응원을 모읍니다.</p></article>
+  </section>
+
+  <form class="panel" id="project-form">
+    <h2>프로젝트 상담 신청</h2>
+    <div class="fields">
+      <div class="field"><label for="name">담당자 이름 *</label><input id="name" required placeholder="이름" autocomplete="name"></div>
+      <div class="field"><label for="phone">연락처 *</label><input id="phone" type="tel" required placeholder="010-0000-0000" autocomplete="tel"></div>
+      <div class="field"><label for="email">이메일 *</label><input id="email" type="email" required placeholder="name@example.com" autocomplete="email"></div>
+      <div class="field"><label for="category">먹거리 카테고리 *</label><select id="category" required><option value="">선택해 주세요</option><option>베이커리</option><option>디저트</option><option>밀키트</option><option>도시락</option><option>그 외</option></select></div>
+      <div class="field full"><label for="product">프로젝트 / 제품명 *</label><input id="product" required placeholder="어떤 먹거리를 소개하고 싶으신가요?"></div>
+      <div class="field full"><label for="story">프로젝트 소개</label><textarea id="story" placeholder="생산자와 제품에 담긴 이야기를 적어주세요."></textarea></div>
+    </div>
+    <button class="btn btn-gold" type="submit">상담 신청하기 ↗</button>
+    <p class="hint">제출 기능은 Supabase 연결 후 사용할 수 있습니다. 입력하신 내용은 화면에서 전송되지 않습니다.</p>
+    <div class="message" id="message" aria-live="polite"></div>
+  </form>
+</main>
+<footer class="footer">
+  <span>© FOODiing · 맛있는 펀딩</span>
+  <nav aria-label="푸터 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a><a href="#">이용약관</a><a href="#">개인정보처리방침</a></nav>
+</footer>
+</div>
+<script src="script.js"></script>
+<script>
+document.querySelector('#project-form').addEventListener('submit', e => { e.preventDefault(); document.querySelector('#message').textContent = '상담 신청 전송은 Supabase 연결 후 사용할 수 있어요.'; });
+</script>
+</body>
+</html>

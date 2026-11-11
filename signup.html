@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f6ef">
+<title>회원가입 | FOODiing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="announce">좋은 먹거리를 만드는 사람과, 그 가치를 알아보는 당신을 잇습니다.</div>
+<div class="wrap">
+<header class="site-header" id="site-header">
+  <div class="top">
+    <a class="brand" href="seasonal-funding.html"><img src="FOODiing-logo-transparent.png" alt="" width="112" height="56"><span class="brandname">FOODiing</span></a>
+    <div class="search" role="search"><span>어떤 제철의 맛을 찾고 있나요?</span><span aria-hidden="true">⌕</span></div>
+    <div class="actions">
+      <a class="d-only" href="login.html">로그인</a>
+      <a class="d-only" href="signup.html">회원가입</a>
+      <a class="btn btn-outline" href="project-start.html">프로젝트 시작하기</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="nav" id="site-nav" aria-label="주요 메뉴">
+      <a href="introduction.html">소개</a>
+      <a href="funding.html">펀딩</a>
+      <a href="funding.html#projects">지금 인기</a>
+      <a href="funding.html#projects">마감 임박</a>
+      <a href="introduction.html#story">생산자 이야기</a>
+      <a class="nav-aside" href="introduction.html">펀딩이 처음이라면 ↗</a>
+      <div class="nav-extra">
+        <div class="search" role="search"><span>어떤 제철의 맛을 찾고 있나요?</span><span aria-hidden="true">⌕</span></div>
+        <div class="row"><a class="btn btn-ghost" href="login.html">로그인</a><a class="btn btn-ghost" href="signup.html">회원가입</a></div>
+        <a class="btn btn-gold" href="project-start.html">프로젝트 시작하기</a>
+      </div>
+  </nav>
+</header>
+<main>
+  <section class="auth">
+    <div class="visual">
+      <div class="kicker">JOIN THE FOODiing</div>
+      <div><h1>좋은 먹거리를 응원하는<br>새로운 식구가 되어주세요.</h1><p>제철의 발견을 함께하고<br>생산자의 다음 계절을 응원해요.</p></div>
+      <div class="motto">맛있는 펀딩, FOODiing</div>
+    </div>
+    <div class="formside">
+      <h2>회원가입</h2>
+      <p class="sub">간단한 정보로 FOODiing을 시작해 보세요.</p>
+      <form id="signup-form">
+        <div class="field"><label for="name">이름</label><input id="name" type="text" placeholder="이름을 입력해 주세요" autocomplete="name" required></div>
+        <div class="field"><label for="email">이메일</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email" required></div>
+        <div class="field"><label for="password">비밀번호</label><input id="password" type="password" placeholder="8자 이상 입력해 주세요" minlength="8" autocomplete="new-password" required></div>
+        <label class="agree"><input id="terms" type="checkbox" required><span><a href="#">이용약관</a> 및 <a href="#">개인정보 처리방침</a>에 동의합니다. (필수)</span></label>
+        <button class="btn btn-gold btn-block" type="submit">회원가입</button>
+        <div class="message" id="message" aria-live="polite"></div>
+      </form>
+      <div class="divider">또는</div>
+      <button class="social" type="button" id="kakao">🟡 카카오로 시작하기</button>
+      <p class="switch">이미 계정이 있으신가요?<a href="login.html">로그인</a></p>
+      <p class="notice">회원가입은 Supabase 연결 후 실제 계정으로 생성됩니다.</p>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <span>© FOODiing · 맛있는 펀딩</span>
+  <nav aria-label="푸터 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a><a href="#">이용약관</a><a href="#">개인정보처리방침</a></nav>
+</footer>
+</div>
+<script src="script.js"></script>
+<script>
+const msg = document.querySelector('#message');
+document.querySelector('#signup-form').addEventListener('submit', e => { e.preventDefault(); msg.textContent = '회원가입 인증은 Supabase 연결 후 사용할 수 있어요.'; });
+document.querySelector('#kakao').addEventListener('click', () => msg.textContent = '카카오 회원가입은 Supabase OAuth 설정 후 사용할 수 있어요.');
+</script>
+</body>
+</html>
