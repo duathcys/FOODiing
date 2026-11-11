@@ -40,53 +40,132 @@
 </header>
 <main>
   <section class="page-head">
-    <div class="eyebrow">SEASONAL FUNDING</div>
-    <h1>제철의 마음을 펀딩하다</h1>
-    <p>생산자의 정성과 계절의 맛을 먼저 만나보세요.</p>
+    <div class="eyebrow">FOOD PROJECT</div>
+    <h1>지금 주목받는 FOOD PROJECT</h1>
+    <p>소비자의 선택을 기다리는 새로운 식품 아이디어</p>
   </section>
 
-<section class="categories" aria-label="카테고리">
-  <div class="cat-title"><strong>오늘은 어떤 맛?</strong><span>취향 따라 발견하는 새로운 한 입</span></div>
-  <button class="cat active" type="button" data-filter="all" aria-pressed="true"><span class="icon">♨</span>전체</button>
-  <button class="cat" type="button" data-filter="베이커리" aria-pressed="false"><span class="icon">🥐</span>베이커리</button>
-  <button class="cat" type="button" data-filter="디저트" aria-pressed="false"><span class="icon">🍰</span>디저트</button>
-  <button class="cat" type="button" data-filter="밀키트" aria-pressed="false"><span class="icon">🍲</span>밀키트</button>
-  <button class="cat" type="button" data-filter="도시락" aria-pressed="false"><span class="icon">🍱</span>도시락</button>
-  <button class="cat" type="button" data-filter="그 외" aria-pressed="false"><span class="icon">✳</span>그 외</button>
-</section>
+  <!-- CATEGORIES -->
+  <section class="categories" aria-label="상품 카테고리">
+    <div class="cat-title"><strong>오늘은 어떤 맛을 발견할까요?</strong><span>취향 따라 발견하는 새로운 먹거리</span></div>
+    <button class="cat active" type="button" data-filter="all" aria-pressed="true"><span class="icon">✳</span>전체</button>
+    <button class="cat" type="button" data-filter="베이커리" aria-pressed="false"><span class="icon">🥐</span>베이커리</button>
+    <button class="cat" type="button" data-filter="디저트" aria-pressed="false"><span class="icon">🍰</span>디저트</button>
+    <button class="cat" type="button" data-filter="간편식" aria-pressed="false"><span class="icon">🍱</span>간편식</button>
+    <button class="cat" type="button" data-filter="밀키트" aria-pressed="false"><span class="icon">🍲</span>밀키트</button>
+  </section>
 
+  <!-- FUNDING PROJECTS -->
   <section id="projects">
-<div class="cards" id="cards">
-  <article class="card" data-category="그 외">
-    <div class="card-img"><img src="https://images.unsplash.com/photo-1478145046317-39f10e56b5e9?auto=format&fit=crop&w=800&q=80" alt="갓 수확한 사과" loading="lazy"><span class="badge">과일 · 예약 펀딩</span></div>
-    <h3>산들바람 맞고 자란 가을 사과</h3>
-    <p class="desc">이상호 농부 · 경북 청송</p>
-    <div class="progress" aria-hidden="true"><i style="width:84%"></i></div>
-    <div class="fundrow"><strong>842% 달성</strong><span>12일 남음</span></div>
-  </article>
-  <article class="card" data-category="베이커리">
-    <div class="card-img"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" alt="갓 구운 빵" loading="lazy"><span class="badge">베이커리 · 선주문</span></div>
-    <h3>우리밀로 천천히 구운 아침 식빵</h3>
-    <p class="desc">온기제빵소 · 전북 완주</p>
-    <div class="progress" aria-hidden="true"><i style="width:67%"></i></div>
-    <div class="fundrow"><strong>670% 달성</strong><span>8일 남음</span></div>
-  </article>
-  <article class="card" data-category="그 외">
-    <div class="card-img"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80" alt="싱그러운 제철 채소" loading="lazy"><span class="badge">채소 · 정기구독</span></div>
-    <h3>땅의 힘으로 키운 무농약 채소 꾸러미</h3>
-    <p class="desc">김인기 농부 · 경기 양평</p>
-    <div class="progress" aria-hidden="true"><i style="width:52%"></i></div>
-    <div class="fundrow"><strong>520% 달성</strong><span>19일 남음</span></div>
-  </article>
-  <article class="card" data-category="그 외">
-    <div class="card-img"><img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&fit=crop&w=800&q=80" alt="바다에서 온 제철 수산물" loading="lazy"><span class="badge">수산물 · 산지 직송</span></div>
-    <h3>맑은 바다가 키운 제철 통영 굴</h3>
-    <p class="desc">바다마을 어부들 · 경남 통영</p>
-    <div class="progress" aria-hidden="true"><i style="width:91%"></i></div>
-    <div class="fundrow"><strong>910% 달성</strong><span>5일 남음</span></div>
-  </article>
-  <p class="empty" id="empty" hidden>아직 이 카테고리에 등록된 펀딩이 없어요. 곧 만나볼 수 있도록 준비 중이에요.</p>
-</div>
+    <div class="cards" id="cards">
+
+      <!-- BAKERY 1 -->
+      <article class="card" data-category="베이커리">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=85" alt="갓 구운 빵" loading="lazy">
+          <span class="badge">베이커리</span>
+        </div>
+        <h3>명란마요 소금빵</h3>
+        <p class="desc">익숙한 소금빵에 특별한 풍미를 더하다</p>
+        <p class="project-type">푸드 크리에이터의 레시피</p>
+        <div class="progress" aria-hidden="true"><i style="width:84%"></i></div>
+        <div class="fundrow"><strong>84% 달성</strong><span>12일 남음</span></div>
+      </article>
+
+      <!-- BAKERY 2 -->
+      <article class="card" data-category="베이커리">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=85" alt="크루아상과 페이스트리" loading="lazy">
+          <span class="badge">베이커리</span>
+        </div>
+        <h3>우베 크림 모찌빵</h3>
+        <p class="desc">쫀득한 빵 속에 담은 보랏빛 우베 크림</p>
+        <p class="project-type">새로운 재료를 활용한 상품 아이디어</p>
+        <div class="progress" aria-hidden="true"><i style="width:67%"></i></div>
+        <div class="fundrow"><strong>67% 달성</strong><span>8일 남음</span></div>
+      </article>
+
+      <!-- DESSERT 1 -->
+      <article class="card" data-category="디저트">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=85" alt="초콜릿 디저트" loading="lazy">
+          <span class="badge">디저트</span>
+        </div>
+        <h3>두바이 스타일 쫀득 쿠키</h3>
+        <p class="desc">피스타치오와 카다이프의 바삭하고 쫀득한 조합</p>
+        <p class="project-type">디저트 크리에이터의 아이디어</p>
+        <div class="progress" aria-hidden="true"><i style="width:92%"></i></div>
+        <div class="fundrow"><strong>92% 달성</strong><span>5일 남음</span></div>
+      </article>
+
+      <!-- DESSERT 2 -->
+      <article class="card" data-category="디저트">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=85" alt="과일과 크림 디저트" loading="lazy">
+          <span class="badge">디저트</span>
+        </div>
+        <h3>과일 크림 모찌</h3>
+        <p class="desc">상큼한 과일과 부드러운 크림을 한입에</p>
+        <p class="project-type">일반 소비자의 레시피 제안</p>
+        <div class="progress" aria-hidden="true"><i style="width:52%"></i></div>
+        <div class="fundrow"><strong>52% 달성</strong><span>19일 남음</span></div>
+      </article>
+
+      <!-- HMR 1 -->
+      <article class="card" data-category="간편식">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=85" alt="밥과 다양한 반찬" loading="lazy">
+          <span class="badge">간편식</span>
+        </div>
+        <h3>한 그릇 고단백 비빔밥</h3>
+        <p class="desc">간편하게 챙기는 든든한 단백질 한 끼</p>
+        <p class="project-type">건강 식단 상품 아이디어</p>
+        <div class="progress" aria-hidden="true"><i style="width:76%"></i></div>
+        <div class="fundrow"><strong>76% 달성</strong><span>10일 남음</span></div>
+      </article>
+
+      <!-- HMR 2 -->
+      <article class="card" data-category="간편식">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=85" alt="파스타 요리" loading="lazy">
+          <span class="badge">간편식</span>
+        </div>
+        <h3>매콤한 크림 리조또</h3>
+        <p class="desc">전자레인지로 간편하게 즐기는 레스토랑 메뉴</p>
+        <p class="project-type">1인 가구를 위한 간편식 제안</p>
+        <div class="progress" aria-hidden="true"><i style="width:61%"></i></div>
+        <div class="fundrow"><strong>61% 달성</strong><span>15일 남음</span></div>
+      </article>
+
+      <!-- MEAL KIT 1 -->
+      <article class="card" data-category="밀키트">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=85" alt="따뜻한 국물 요리" loading="lazy">
+          <span class="badge">밀키트</span>
+        </div>
+        <h3>마라 로제 떡볶이 키트</h3>
+        <p class="desc">얼얼한 마라와 부드러운 로제의 만남</p>
+        <p class="project-type">새로운 맛 조합 프로젝트</p>
+        <div class="progress" aria-hidden="true"><i style="width:88%"></i></div>
+        <div class="fundrow"><strong>88% 달성</strong><span>6일 남음</span></div>
+      </article>
+
+      <!-- MEAL KIT 2 -->
+      <article class="card" data-category="밀키트">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1551505408-2c8e7b4c5d6a?auto=format&fit=crop&w=800&q=85" alt="타코와 멕시칸 음식" loading="lazy">
+          <span class="badge">밀키트</span>
+        </div>
+        <h3>불고기 타코 키트</h3>
+        <p class="desc">한국식 불고기와 멕시칸 타코의 색다른 조합</p>
+        <p class="project-type">퓨전 푸드 상품 제안</p>
+        <div class="progress" aria-hidden="true"><i style="width:43%"></i></div>
+        <div class="fundrow"><strong>43% 달성</strong><span>21일 남음</span></div>
+      </article>
+
+      <p class="empty" id="empty" hidden>아직 이 카테고리에 등록된 프로젝트가 없어요.</p>
+
+    </div>
   </section>
 </main>
 <footer class="footer">
