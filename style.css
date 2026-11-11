@@ -729,3 +729,65 @@ main { flex: 1; }
   .card-img { aspect-ratio: 16 / 10; }
   .hero h1 { font-size: 26px; }
 }
+
+/* 5-category row + project type label */
+.categories { grid-template-columns: minmax(150px, 200px) repeat(5, 1fr); }
+.card .project-type { margin: -6px 0 12px; font-size: 11px; color: var(--red); }
+@media (max-width: 900px) { .categories { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 640px) {
+  .categories { grid-template-columns: repeat(5, 1fr); gap: 18px 4px; }
+  .cat { font-size: 11px; }
+  .cat .icon { width: 46px; height: 46px; font-size: 20px; }
+}
+
+/* ---------- Signup (2-step) ---------- */
+.hidden { display: none !important; }
+
+.signup-steps { list-style: none; display: flex; gap: 8px; margin: 0 0 24px; padding: 0; }
+.signup-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 3px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+  transition: border-color .2s, color .2s;
+}
+.signup-step span {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--cream);
+  font-size: 11px;
+  font-weight: 700;
+}
+.signup-step.active { border-top-color: var(--red); color: var(--ink); font-weight: 700; }
+.signup-step.active span { background: var(--red); color: #fff; }
+
+.fieldset { min-width: 0; margin: 0 0 16px; padding: 0; border: 0; }
+.fieldset legend { padding: 0; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
+.optional { font-weight: 400; color: var(--muted); }
+
+.choice-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { position: relative; }
+.choice input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.choice span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fffefa;
+  font-size: 13px;
+  transition: background .2s, border-color .2s;
+}
+.choice:hover span { border-color: #9a7561; }
+.choice input:checked + span { background: var(--gold); border-color: var(--gold); font-weight: 700; }
+.choice input:focus-visible + span { outline: 2px solid var(--red); outline-offset: 2px; }
+
+.btn-row { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 6px; }

@@ -25,11 +25,11 @@
     </div>
   </div>
   <nav class="nav" id="site-nav" aria-label="주요 메뉴">
-      <a href="introduction.html">소개</a>
+      <a href="index.html">소개</a>
       <a href="funding.html">펀딩</a>
       <a href="funding.html#projects">지금 인기</a>
       <a href="funding.html#projects">마감 임박</a>
-      <a href="introduction.html#story">아이디어 제안자 및 브랜드 이야기</a>
+      <a href="index.html#story">아이디어 제안자 및 브랜드 이야기</a>
       <a class="nav-aside" href="index.html">펀딩이 처음이라면 ↗</a>
       <div class="nav-extra">
         <div class="search" role="search"><span>어떤 새로운 레시피를 만나고 싶나요?</span><span aria-hidden="true">⌕</span></div>
@@ -38,41 +38,215 @@
       </div>
   </nav>
 </header>
+
 <main>
   <section class="auth">
     <div class="visual">
       <div class="kicker">JOIN THE FOODiing</div>
-      <div><h1>좋은 먹거리를 응원하는<br>새로운 식구가 되어주세요.</h1><p>제철의 발견을 함께하고<br>생산자의 다음 계절을 응원해요.</p></div>
+      <div>
+        <h1>좋은 먹거리를 응원하는<br>새로운 식구가 되어주세요.</h1>
+        <p>제철의 발견을 함께하고<br>생산자의 다음 계절을 응원해요.</p>
+      </div>
       <div class="motto">맛있는 펀딩, FOODiing</div>
     </div>
+
     <div class="formside">
-      <h2>회원가입</h2>
-      <p class="sub">간단한 정보로 FOODiing을 시작해 보세요.</p>
-      <form id="signup-form">
-        <div class="field"><label for="name">이름</label><input id="name" type="text" placeholder="이름을 입력해 주세요" autocomplete="name" required></div>
-        <div class="field"><label for="email">이메일</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email" required></div>
-        <div class="field"><label for="password">비밀번호</label><input id="password" type="password" placeholder="8자 이상 입력해 주세요" minlength="8" autocomplete="new-password" required></div>
-        <label class="agree"><input id="terms" type="checkbox" required><span><a href="#">이용약관</a> 및 <a href="#">개인정보 처리방침</a>에 동의합니다. (필수)</span></label>
-        <button class="btn btn-gold btn-block" type="submit">회원가입</button>
-        <div class="message" id="message" aria-live="polite"></div>
-      </form>
-      <div class="divider">또는</div>
-      <button class="social" type="button" id="kakao">🟡 카카오로 시작하기</button>
-      <p class="switch">이미 계정이 있으신가요?<a href="login.html">로그인</a></p>
-      <p class="notice">회원가입은 Supabase 연결 후 실제 계정으로 생성됩니다.</p>
+
+      <ol class="signup-steps" aria-label="가입 단계">
+        <li class="signup-step active" id="progress1"><span>1</span>계정 정보</li>
+        <li class="signup-step" id="progress2"><span>2</span>메이커 정보</li>
+      </ol>
+
+      <!-- STEP 1 : 계정 정보 -->
+      <div id="step1">
+        <h2>회원가입</h2>
+        <p class="sub">간단한 정보로 FOODiing을 시작해 보세요.</p>
+
+        <form id="signup-form">
+          <div class="field"><label for="name">이름</label><input id="name" type="text" placeholder="이름을 입력해 주세요" autocomplete="name" required></div>
+          <div class="field"><label for="email">이메일</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email" required></div>
+          <div class="field"><label for="password">비밀번호</label><input id="password" type="password" placeholder="8자 이상 입력해 주세요" minlength="8" autocomplete="new-password" required></div>
+          <label class="agree"><input id="terms" type="checkbox" required><span><a href="#">이용약관</a> 및 <a href="#">개인정보 처리방침</a>에 동의합니다. (필수)</span></label>
+          <button class="btn btn-gold btn-block" type="submit">다음</button>
+          <div class="message" id="message" aria-live="polite"></div>
+        </form>
+
+        <div class="divider">또는</div>
+        <button class="social" type="button" id="kakao">🟡 카카오로 시작하기</button>
+        <p class="switch">이미 계정이 있으신가요?<a href="login.html">로그인</a></p>
+      </div>
+
+      <!-- STEP 2 : 메이커 정보 -->
+      <div id="step2" class="hidden">
+        <h2>메이커 정보</h2>
+        <p class="sub">프로젝트를 시작하기 위한 기본 정보를 알려주세요.</p>
+
+        <form id="maker-form">
+          <div class="field">
+            <label for="country">국가</label>
+            <select id="country" required>
+              <option value="">선택해 주세요</option>
+              <option value="KR">대한민국</option>
+              <option value="US">미국</option>
+              <option value="JP">일본</option>
+              <option value="ETC">기타</option>
+            </select>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>사업자 유형</legend>
+            <div class="choice-group">
+              <label class="choice"><input type="radio" name="businessType" value="개인" required><span>개인</span></label>
+              <label class="choice"><input type="radio" name="businessType" value="개인사업자"><span>개인사업자</span></label>
+              <label class="choice"><input type="radio" name="businessType" value="법인사업자"><span>법인사업자</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="residence">거주지</label>
+            <select id="residence" required>
+              <option value="">선택해 주세요</option>
+              <option>서울</option><option>부산</option><option>대구</option><option>인천</option>
+              <option>광주</option><option>대전</option><option>울산</option><option>세종</option>
+              <option>경기</option><option>강원</option><option>충북</option><option>충남</option>
+              <option>전북</option><option>전남</option><option>경북</option><option>경남</option>
+              <option>제주</option><option>해외</option>
+            </select>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>프로젝트 카테고리</legend>
+            <div class="choice-group">
+              <label class="choice"><input type="radio" name="category" value="베이커리" required><span>🥐 베이커리</span></label>
+              <label class="choice"><input type="radio" name="category" value="디저트"><span>🍰 디저트</span></label>
+              <label class="choice"><input type="radio" name="category" value="간편식"><span>🍱 간편식</span></label>
+              <label class="choice"><input type="radio" name="category" value="밀키트"><span>🍲 밀키트</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="language">콘텐츠 언어</label>
+            <select id="language" required>
+              <option value="">선택해 주세요</option>
+              <option value="ko">한국어</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="referral">추천인 코드 <span class="optional">(선택)</span></label>
+            <input id="referral" type="text" placeholder="추천인 코드가 있다면 입력해 주세요" autocomplete="off">
+          </div>
+
+          <label class="agree"><input id="marketing" type="checkbox"><span>이벤트·혜택 등 마케팅 정보 수신에 동의합니다. (선택)</span></label>
+
+          <div class="btn-row">
+            <button class="btn btn-ghost btn-block" type="button" id="back">이전</button>
+            <button class="btn btn-gold btn-block" type="submit">가입 완료</button>
+          </div>
+          <div class="message" id="maker-message" aria-live="polite"></div>
+        </form>
+      </div>
+
     </div>
   </section>
 </main>
+
 <footer class="footer">
   <span>© FOODiing · 맛있는 펀딩</span>
-  <nav aria-label="푸터 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a><a href="#">이용약관</a><a href="#">개인정보처리방침</a></nav>
+  <nav aria-label="푸터 메뉴"><a href="index.html">소개</a><a href="funding.html">펀딩</a><a href="#">이용약관</a><a href="#">개인정보처리방침</a></nav>
 </footer>
 </div>
+
 <script src="script.js"></script>
+<script src="auth.js"></script>
 <script>
+const signupForm = document.querySelector('#signup-form');
+const makerForm = document.querySelector('#maker-form');
+
+const step1 = document.querySelector('#step1');
+const step2 = document.querySelector('#step2');
+
 const msg = document.querySelector('#message');
-document.querySelector('#signup-form').addEventListener('submit', e => { e.preventDefault(); msg.textContent = '회원가입 인증은 Supabase 연결 후 사용할 수 있어요.'; });
-document.querySelector('#kakao').addEventListener('click', () => msg.textContent = '카카오 회원가입은 Supabase OAuth 설정 후 사용할 수 있어요.');
+const makerMsg = document.querySelector('#maker-message');
+
+let accountData = {};
+
+signupForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  if (!signupForm.reportValidity()) return;
+
+  accountData = {
+    name: document.querySelector('#name').value.trim(),
+    email: document.querySelector('#email').value.trim(),
+    password: document.querySelector('#password').value
+  };
+
+  if (Auth.getUsers().some(user => user.email === accountData.email)) {
+    msg.textContent = '이미 가입된 이메일입니다.';
+    return;
+  }
+
+  step1.classList.add('hidden');
+  step2.classList.remove('hidden');
+
+  document.querySelector('#progress2').classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// 이전 단계
+document.querySelector('#back').addEventListener('click', () => {
+  step2.classList.add('hidden');
+  step1.classList.remove('hidden');
+
+  document.querySelector('#progress2').classList.remove('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// 최종 회원가입
+makerForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  if (!makerForm.reportValidity()) return;
+
+  const makerData = {
+    country: document.querySelector('#country').value,
+
+    businessType:
+      document.querySelector('input[name="businessType"]:checked').value,
+
+    residence: document.querySelector('#residence').value,
+
+    category:
+      document.querySelector('input[name="category"]:checked').value,
+
+    contentLanguage: document.querySelector('#language').value,
+
+    referralCode: document.querySelector('#referral').value.trim(),
+
+    marketingConsent:
+      document.querySelector('#marketing').checked
+  };
+
+  const result = Auth.signup(accountData, makerData);
+
+  if (!result.success) {
+    makerMsg.textContent = result.message;
+    return;
+  }
+
+  alert('FOODiing 회원가입이 완료되었습니다!');
+
+  location.href = 'index.html';
+});
+
+// 카카오 로그인은 시연용 안내
+document.querySelector('#kakao').addEventListener('click', () => {
+  msg.textContent = '카카오 로그인은 실제 연동이 필요한 기능입니다.';
+});
 </script>
 </body>
 </html>
