@@ -3,7 +3,7 @@
    Breakpoints (desktop-first):
      ≤ 1024px  tablet landscape  — tighter hero / spacing
      ≤  900px  tablet            — hamburger nav, stacked hero, 2-col cards
-     ≤  640px  mobile            — single-column forms/tiles, full-width buttons
+     ≤  640px  mobile            — single-column forms/cards, full-width buttons
      ≤  400px  small mobile      — 1-col cards, smaller type
    ========================================================================== */
 
@@ -404,17 +404,82 @@ main { flex: 1; }
 .story h2 { font-size: clamp(19px, 2.4vw, 23px); letter-spacing: -1px; margin: 9px 0; }
 .story p { font-size: 12px; color: #806658; }
 
-/* ---------- index tiles ---------- */
-.tiles {
+/* ---------- Introduction (index) ---------- */
+.page-hero .brand-logo {
+  margin: clamp(26px, 4vw, 38px) 0 clamp(22px, 3vw, 30px);
+  font-size: clamp(42px, 9vw, 88px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--ink);
+}
+.brand-logo span { color: var(--red); }
+.brand-concept {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: var(--section);
+  gap: 14px;
+  margin-bottom: clamp(22px, 3vw, 30px);
 }
-.tile { padding: 27px; background: var(--card); border: 1px solid #eee8dc; border-radius: 5px; }
-.tile b { font-size: 17px; }
-.tile p { margin-top: 10px; font-size: 13px; line-height: 1.8; color: var(--muted); }
-.block-title { font-size: clamp(20px, 2.4vw, 23px); letter-spacing: -1px; margin: clamp(32px, 4vw, 40px) 0 18px; }
+.concept-item {
+  padding: 20px 22px;
+  background: var(--card);
+  border: 1px solid #eee8dc;
+  border-radius: 5px;
+}
+.concept-item strong { display: block; margin-bottom: 8px; font-size: 20px; letter-spacing: -.5px; color: var(--red); }
+.page-hero .concept-item p { font-size: 13px; line-height: 1.7; color: var(--soft); }
+
+.section { margin-top: var(--section); }
+.section h2 { margin: 12px 0; font-size: clamp(24px, 3.2vw, 32px); line-height: 1.4; letter-spacing: -1.5px; }
+.section-intro { margin-top: 14px; font-size: 14px; line-height: 1.9; color: var(--muted); }
+.page-hero .section-intro { margin-top: 0; color: #806658; }
+
+.value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+.value-card { padding: 28px; background: var(--card); border: 1px solid #eee8dc; border-radius: 5px; }
+.value-card .number { font-size: 11px; letter-spacing: .08em; color: var(--red); }
+.value-card h3 { margin: 12px 0 10px; font-size: 17px; line-height: 1.5; letter-spacing: -.4px; }
+.value-card p { font-size: 13px; line-height: 1.8; color: var(--muted); }
+
+.process {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px;
+  margin: 28px 0 0;
+  padding: 0;
+}
+.process-item {
+  position: relative;
+  padding: 24px 12px;
+  text-align: center;
+  background: var(--cream);
+  border-radius: 5px;
+}
+.process-item span { display: block; font-size: 24px; font-weight: 800; letter-spacing: -.5px; color: var(--red); }
+.process-item small { display: block; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--ink); }
+.process-item:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 28px;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.closing {
+  margin: var(--section) 0 clamp(40px, 6vw, 64px);
+  padding: clamp(40px, 7vw, 76px) clamp(24px, 5vw, 64px);
+  text-align: center;
+  background: var(--brown);
+  color: #fff7ea;
+  border-radius: 7px;
+}
+.closing .eyebrow { color: var(--gold); }
+.closing h2 { margin-top: 14px; font-size: clamp(24px, 3.8vw, 38px); line-height: 1.5; letter-spacing: -1.5px; }
+.closing h2 span { color: var(--gold); }
 
 /* ---------- Auth (login / signup) ---------- */
 .auth {
@@ -562,6 +627,11 @@ main { flex: 1; }
   .nav { gap: 26px; }
 }
 
+@media (max-width: 1024px) {
+  .process { gap: 24px; }
+  .process-item:not(:last-child)::after { width: 24px; }
+}
+
 @media (max-width: 900px) {
   /* header → hamburger */
   .top { height: 66px; gap: 12px; }
@@ -621,9 +691,16 @@ main { flex: 1; }
 
   .categories { grid-template-columns: repeat(3, 1fr); gap: 20px 6px; }
 
-  .tiles, .steps { grid-template-columns: 1fr; gap: 12px; }
-  .tile { padding: 22px; }
+  .steps { grid-template-columns: 1fr; gap: 12px; }
   .step { padding: 18px 20px; }
+
+  .brand-concept, .value-grid { grid-template-columns: 1fr; gap: 12px; }
+  .concept-item { padding: 18px 20px; }
+  .value-card { padding: 22px; }
+  .process { grid-template-columns: 1fr; gap: 10px; }
+  .process-item { display: flex; align-items: center; gap: 16px; padding: 16px 20px; text-align: left; }
+  .process-item small { margin-top: 0; font-size: 14px; }
+  .process-item:not(:last-child)::after { display: none; }
 
   .story { flex-direction: column; align-items: flex-start; }
   .story .btn { align-self: stretch; }
