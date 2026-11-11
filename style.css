@@ -835,6 +835,20 @@ main { flex: 1; }
 .maker-submit { padding-top: 24px; text-align: center; }
 .maker-submit .btn { min-width: 220px; }
 .maker-submit .hint { color: var(--muted); font-size: 11px; }
+.maker-product-info { display: grid; gap: 8px; padding: 16px; border-radius: 9px; background: #f8f6ef; font-size: 12px; line-height: 1.6; }
+.maker-product-info div { display: flex; justify-content: space-between; gap: 12px; }
+.maker-product-info strong { text-align: right; }
+.image-upload-box { padding: 24px 16px; border: 1px dashed #cfc5b8; border-radius: 10px; background: #fcfbf8; text-align: center; }
+.image-upload-box > strong { font-size: 13px; }
+.image-upload-box p { margin: 7px 0 10px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.image-upload-box input { display: block; max-width: 100%; margin: 0 auto; font-size: 12px; }
+.image-preview-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.preview-item { position: relative; overflow: hidden; aspect-ratio: 1; border-radius: 9px; background: #f3f0e9; }
+.preview-item img { width: 100%; height: 100%; object-fit: cover; }
+.preview-item button { position: absolute; top: 6px; right: 6px; display: grid; place-items: center; width: 28px; height: 28px; border: 0; border-radius: 50%; background: #000a; color: #fff; cursor: pointer; }
+.detail-actions { display: flex; justify-content: space-between; gap: 12px; margin: 28px 0 10px; }
+.detail-actions > a, .detail-actions > button { min-height: 48px; padding: 0 22px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer; }
+.project-detail-form > .hint { text-align: center; }
 @media (max-width: 700px) {
   .maker-form { padding: 22px 18px; }
   .shipping-options { grid-template-columns: 1fr; }
@@ -860,6 +874,8 @@ main { flex: 1; }
 @media (max-width: 600px) {
   .ingredient-row { grid-template-columns: 1fr 1fr; }
   .remove-ingredient { height: 40px; }
+  .image-preview-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .detail-actions > a, .detail-actions > button { flex: 1; padding: 0 12px; }
 }
 
 /* Funding campaign detail */

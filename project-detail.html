@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f6ef">
+<title>펀딩 상세페이지 작성 | FOODiing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="announce">세상에 없던 맛있는 아이디어, FOODiing에서 만나요.</div>
+<div class="wrap">
+<header class="site-header" id="site-header">
+  <div class="top">
+    <a class="brand" href="index.html"><img src="FOODiing-logo-transparent.png" alt="" width="112" height="56"><span class="brandname">FOODiing</span></a>
+    <div class="search" role="search"><span>어떤 새로운 레시피를 만나고 싶나요?</span><span aria-hidden="true">⌕</span></div>
+    <div class="actions"><a class="d-only" href="login.html">로그인</a><a class="d-only" href="signup.html">회원가입</a><a class="btn btn-outline" href="project-start.html">프로젝트 시작하기</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>
+  </div>
+  <nav class="nav" id="site-nav" aria-label="주요 메뉴">
+    <a href="introduction.html">소개</a><a href="funding.html">펀딩</a><a href="funding.html#projects">지금 인기</a><a href="funding.html#projects">마감 임박</a><a href="introduction.html#story">아이디어 제안자 및 브랜드 이야기</a><a class="nav-aside" href="index.html">펀딩이 처음이라면 ↗</a>
+    <div class="nav-extra"><div class="search" role="search"><span>어떤 새로운 레시피를 만나고 싶나요?</span><span aria-hidden="true">⌕</span></div><div class="row"><a class="btn btn-ghost" href="login.html">로그인</a><a class="btn btn-ghost" href="signup.html">회원가입</a></div><a class="btn btn-gold" href="project-start.html">프로젝트 시작하기</a></div>
+  </nav>
+</header>
+
+<main>
+  <section class="page-hero maker-hero">
+    <div class="eyebrow">PROJECT REGISTRATION · STEP 02</div>
+    <h1>펀딩 상세페이지 작성</h1>
+    <p>제품의 매력과 이야기를 사진과 글로 소개해 주세요.</p>
+  </section>
+
+  <form class="panel maker-form project-detail-form" id="detail-form">
+    <section class="maker-section">
+      <h2>앞 단계에서 등록한 제품 정보</h2>
+      <div class="maker-product-info">
+        <div>제품명 <strong id="saved-product-name">-</strong></div>
+        <div>대표 카테고리 <strong id="saved-category">-</strong></div>
+        <div>권장 생산 수량 <strong id="saved-quantity">-</strong></div>
+        <div>권장 펀딩 목표 금액 <strong id="saved-goal">-</strong></div>
+      </div>
+      <p class="field-help">제품 정보는 이전 단계에서 수정할 수 있습니다.</p>
+    </section>
+
+    <section class="maker-section">
+      <h2>제품 이미지 <span class="required">필수</span></h2>
+      <div class="field">
+        <label for="main-image">대표 이미지 <span class="required">필수</span></label>
+        <div class="image-upload-box"><strong>제품을 가장 잘 보여주는 사진을 등록해 주세요.</strong><p>JPG, PNG, WEBP · 대표 이미지 1장</p><input type="file" id="main-image" accept="image/jpeg,image/png,image/webp" required></div>
+        <div id="main-image-preview" class="image-preview-list"></div>
+      </div>
+      <div class="field">
+        <label for="additional-images">추가 이미지 <span class="optional">(선택, 최대 4장)</span></label>
+        <div class="image-upload-box"><strong>제품과 패키지, 조리·섭취 장면을 보여주세요.</strong><p>이미지는 브라우저에서 크기를 줄여 저장합니다.</p><input type="file" id="additional-images" accept="image/jpeg,image/png,image/webp" multiple></div>
+        <div id="additional-image-preview" class="image-preview-list"></div>
+      </div>
+    </section>
+
+    <section class="maker-section">
+      <h2>제품 소개 <span class="required">필수</span></h2>
+      <div class="field"><label for="detail-title">프로젝트 제목 <span class="required">필수</span></label><input id="detail-title" type="text" placeholder="예: 바삭함과 쫀득함을 한 번에, 새로운 디저트의 탄생" required></div>
+      <div class="field"><label for="detail-subtitle">한 줄 소개 <span class="required">필수</span></label><input id="detail-subtitle" type="text" placeholder="제품의 가장 큰 매력을 한 문장으로 소개해 주세요." required></div>
+      <div class="field"><label for="product-description">제품 상세 설명 <span class="required">필수</span></label><textarea id="product-description" placeholder="제품의 맛, 식감, 주요 재료와 특징을 소개해 주세요." required></textarea></div>
+    </section>
+
+    <section class="maker-section">
+      <h2>제품 제작 스토리</h2>
+      <div class="field"><label for="product-story">제품을 만들게 된 배경</label><textarea id="product-story" placeholder="어떤 아이디어에서 시작했나요? 제품을 만들게 된 계기를 들려주세요."></textarea></div>
+      <div class="field"><label for="product-difference">제품의 특징 및 차별점</label><textarea id="product-difference" placeholder="특별한 재료, 제조 방식, 기존 제품과 다른 점을 소개해 주세요."></textarea></div>
+    </section>
+
+    <section class="maker-section">
+      <h2>상품 및 이용 안내</h2>
+      <div class="field"><label for="product-composition">제품 구성 및 중량</label><textarea id="product-composition" placeholder="예: 쿠키 50g × 1개, 개별 포장"></textarea></div>
+      <div class="field"><label for="storage-guide">보관 및 섭취 안내</label><textarea id="storage-guide" placeholder="보관 방법, 섭취 방법, 유통기한 등을 안내해 주세요."></textarea></div>
+      <div class="field"><label for="caution-guide">알레르기 및 유의사항</label><textarea id="caution-guide" placeholder="알레르기 유발 성분 등 소비자에게 안내할 내용을 입력해 주세요."></textarea></div>
+    </section>
+
+    <section class="maker-section">
+      <h2>상세페이지 미리보기 이미지 <span class="optional">(선택)</span></h2>
+      <div class="field"><label for="preview-images">상세 이미지</label><div class="image-upload-box"><strong>세로형 상세페이지 이미지가 있다면 등록해 주세요.</strong><p>이미지 최대 4장 · 브라우저에서 크기를 줄여 저장합니다.</p><input type="file" id="preview-images" accept="image/jpeg,image/png,image/webp" multiple></div><div id="preview-image-list" class="image-preview-list"></div></div>
+    </section>
+
+    <div class="detail-actions"><a href="project-start.html" class="btn btn-ghost">← 이전 단계</a><button type="submit" class="btn btn-gold">상세페이지 저장하기</button></div>
+    <div class="message" id="detail-message" aria-live="polite"></div>
+    <p class="hint">작성 내용과 이미지 미리보기는 현재 브라우저에 임시 저장됩니다. 실제 서비스에서는 이미지 파일을 서버나 클라우드 스토리지에 저장해야 합니다.</p>
+  </form>
+</main>
+<footer class="footer"><span>© FOODiing · 맛있는 펀딩</span><nav aria-label="푸터 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a><a href="#">이용약관</a><a href="#">개인정보처리방침</a></nav></footer>
+</div>
+
+<script src="script.js"></script>
+<script>
+(() => {
+  const makerData = JSON.parse(localStorage.getItem('foodiing-project-maker') || 'null');
+  if (!makerData) {
+    alert('먼저 메이커 및 제품 정보를 등록해 주세요.');
+    window.location.replace('project-start.html');
+    return;
+  }
+
+  const formatWon = value => `${Math.round(Number(value) || 0).toLocaleString('ko-KR')}원`;
+  document.querySelector('#saved-product-name').textContent = makerData.productName || '-';
+  document.querySelector('#saved-category').textContent = makerData.mainCategory || '-';
+  document.querySelector('#saved-quantity').textContent = makerData.productionQuantity
+    ? `${Number(makerData.productionQuantity).toLocaleString('ko-KR')}개` : '-';
+  document.querySelector('#saved-goal').textContent = makerData.goalAmount ? formatWon(makerData.goalAmount) : '-';
+
+  const mainInput = document.querySelector('#main-image');
+  const additionalInput = document.querySelector('#additional-images');
+  const previewInput = document.querySelector('#preview-images');
+  const mainPreview = document.querySelector('#main-image-preview');
+  const additionalPreview = document.querySelector('#additional-image-preview');
+  const previewList = document.querySelector('#preview-image-list');
+  const detailMessage = document.querySelector('#detail-message');
+  let mainImageData = '';
+  let additionalImageData = [];
+  let previewImageData = [];
+
+  function compressImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = event => {
+        const image = new Image();
+        image.onerror = reject;
+        image.onload = () => {
+          const maxSize = 1200;
+          const ratio = Math.min(1, maxSize / Math.max(image.width, image.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(image.width * ratio));
+          canvas.height = Math.max(1, Math.round(image.height * ratio));
+          const context = canvas.getContext('2d');
+          if (!context) return reject(new Error('이미지 변환을 시작할 수 없습니다.'));
+          context.drawImage(image, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', 0.72));
+        };
+        image.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderImages(container, images, removeImage) {
+    container.replaceChildren();
+    images.forEach((src, index) => {
+      const item = document.createElement('div');
+      item.className = 'preview-item';
+      const image = document.createElement('img');
+      image.src = src;
+      image.alt = '업로드한 제품 이미지 미리보기';
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.textContent = '×';
+      remove.setAttribute('aria-label', '이미지 삭제');
+      remove.addEventListener('click', () => removeImage(index));
+      item.append(image, remove);
+      container.appendChild(item);
+    });
+  }
+
+  mainInput.addEventListener('change', async () => {
+    const file = mainInput.files[0];
+    if (!file) return;
+    try {
+      mainImageData = await compressImage(file);
+      renderImages(mainPreview, [mainImageData], () => {
+        mainImageData = '';
+        mainInput.value = '';
+        mainPreview.replaceChildren();
+      });
+      detailMessage.textContent = '';
+    } catch (error) {
+      alert('대표 이미지를 불러오지 못했습니다. 다른 이미지 파일을 선택해 주세요.');
+      mainInput.value = '';
+    }
+  });
+
+  async function addImages(input, list, container) {
+    const files = Array.from(input.files || []);
+    const validFiles = files.filter(file => file.type.startsWith('image/'));
+    if (validFiles.length !== files.length) alert('이미지 파일만 등록할 수 있습니다.');
+    if (list.length + validFiles.length > 4) {
+      alert('이미지는 최대 4장까지 등록할 수 있습니다.');
+      input.value = '';
+      return;
+    }
+    try {
+      for (const file of validFiles) list.push(await compressImage(file));
+      const render = () => renderImages(container, list, index => {
+        list.splice(index, 1);
+        render();
+      });
+      render();
+    } catch (error) {
+      alert('이미지를 불러오지 못했습니다. 파일 크기를 확인하고 다시 시도해 주세요.');
+    }
+    input.value = '';
+  }
+
+  additionalInput.addEventListener('change', () => addImages(additionalInput, additionalImageData, additionalPreview));
+  previewInput.addEventListener('change', () => addImages(previewInput, previewImageData, previewList));
+
+  document.querySelector('#detail-form').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!event.currentTarget.reportValidity()) return;
+    if (!mainImageData) {
+      detailMessage.textContent = '대표 이미지를 등록해 주세요.';
+      mainInput.focus();
+      return;
+    }
+    const detailData = {
+      title: document.querySelector('#detail-title').value.trim(),
+      subtitle: document.querySelector('#detail-subtitle').value.trim(),
+      description: document.querySelector('#product-description').value.trim(),
+      story: document.querySelector('#product-story').value.trim(),
+      difference: document.querySelector('#product-difference').value.trim(),
+      composition: document.querySelector('#product-composition').value.trim(),
+      storage: document.querySelector('#storage-guide').value.trim(),
+      caution: document.querySelector('#caution-guide').value.trim(),
+      images: { main: mainImageData, additional: additionalImageData, preview: previewImageData },
+      updatedAt: new Date().toISOString()
+    };
+    try {
+      localStorage.setItem('foodiing-project-detail', JSON.stringify(detailData));
+      detailMessage.textContent = '펀딩 상세페이지 정보가 저장되었습니다.';
+      window.scrollTo({ top: document.querySelector('#detail-form').offsetTop, behavior: 'smooth' });
+    } catch (error) {
+      detailMessage.textContent = '브라우저 저장 공간이 부족합니다. 이미지 수나 용량을 줄여 주세요.';
+    }
+  });
+})();
+</script>
+</body>
+</html>
