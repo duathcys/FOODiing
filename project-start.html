@@ -62,6 +62,19 @@
         </div></div>
         <button type="button" class="btn btn-outline" id="add-ingredient">+ 재료 추가</button>
       </div>
+      <div class="field">
+        <label for="main-category">대표 카테고리 <span class="required">필수</span></label>
+        <p class="field-help">카테고리를 선택하면 FOODiing의 카테고리별 표준 제조 기준으로 권장 생산 수량과 목표 금액을 계산합니다.</p>
+        <select id="main-category" required>
+          <option value="">카테고리를 선택해 주세요</option>
+          <option value="푸드 &gt; 디저트·간식">푸드 &gt; 디저트·간식</option>
+          <option value="푸드 &gt; 베이커리">푸드 &gt; 베이커리</option>
+          <option value="푸드 &gt; 음료·커피">푸드 &gt; 음료·커피</option>
+          <option value="푸드 &gt; 간편식">푸드 &gt; 간편식</option>
+          <option value="푸드 &gt; 밀키트">푸드 &gt; 밀키트</option>
+          <option value="푸드 &gt; 해당 없음">푸드 &gt; 해당 없음</option>
+        </select>
+      </div>
       <div class="cost-result" id="cost-result" aria-live="polite">
         <div class="cost-result-header"><strong>FOODiing 상품화 예상 결과</strong><span>내부 기준 자동 산출</span></div>
         <div class="result-item"><span>권장 최소 생산 수량</span><strong id="recommended-quantity">산출 대기</strong></div>
@@ -92,9 +105,8 @@
     </section>
 
     <section class="maker-section">
-      <h2>카테고리</h2>
+      <h2>보조 카테고리</h2>
       <div class="info-box"><span class="info-icon" aria-hidden="true">i</span><div><strong>카테고리 정보</strong></div></div>
-      <div class="field"><label for="main-category">대표 카테고리 <span class="required">필수</span></label><p class="field-help">카테고리를 상세하게 선택할수록 서포터가 프로젝트를 더 잘 찾을 수 있어요. 중분류에 원하는 항목이 없다면 해당 없음을 선택해 주세요.</p><select id="main-category" required><option value="">카테고리를 선택해 주세요</option><option>푸드 &gt; 디저트·간식</option><option>푸드 &gt; 베이커리</option><option>푸드 &gt; 음료·커피</option><option>푸드 &gt; 간편식</option><option>푸드 &gt; 밀키트</option><option>푸드 &gt; 해당 없음</option></select></div>
       <div class="field"><label for="sub-category">보조 카테고리 <span class="optional">(선택)</span></label><p class="field-help">프로젝트를 더 많은 카테고리에 노출할 수 있도록 선택해 주세요.</p><select id="sub-category"><option value="">카테고리 선택</option><option>푸드 &gt; 디저트·간식</option><option>푸드 &gt; 베이커리</option><option>푸드 &gt; 음료·커피</option><option>푸드 &gt; 간편식</option><option>푸드 &gt; 밀키트</option></select></div>
     </section>
 
@@ -205,6 +217,7 @@ function calculateCost() {
 
 form.addEventListener('input', calculateCost);
 form.addEventListener('change', calculateCost);
+document.querySelector('#main-category').addEventListener('change', calculateCost);
 form.addEventListener('submit', event => {
   event.preventDefault();
   if (!form.reportValidity()) return;
