@@ -71,9 +71,9 @@
           <div class="message" id="message" aria-live="polite"></div>
         </form>
 
-        <div class="divider">또는</div>
+        <!-- <div class="divider">또는</div>
         <button class="social" type="button" id="kakao">🟡 카카오로 시작하기</button>
-        <p class="switch">이미 계정이 있으신가요?<a href="login.html">로그인</a></p>
+        <p class="switch">이미 계정이 있으신가요?<a href="login.html">로그인</a></p> -->
       </div>
 
       <!-- STEP 2 : 메이커 정보 -->
@@ -94,11 +94,16 @@
           </div>
 
           <fieldset class="fieldset">
-            <legend>사업자 유형</legend>
+            <legend>사업자 등록 여부 <span class="required">*</span></legend>
             <div class="choice-group">
-              <label class="choice"><input type="radio" name="businessType" value="개인" required><span>개인</span></label>
-              <label class="choice"><input type="radio" name="businessType" value="개인사업자"><span>개인사업자</span></label>
-              <label class="choice"><input type="radio" name="businessType" value="법인사업자"><span>법인사업자</span></label>
+              <label class="choice">
+                <input type="radio" name="businessType" value="없음" required>
+                <span>사업자등록증 없음</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="businessType" value="있음">
+                <span>사업자등록증 있음</span>
+              </label>
             </div>
           </fieldset>
 
@@ -114,15 +119,18 @@
             </select>
           </div>
 
-          <fieldset class="fieldset">
-            <legend>프로젝트 카테고리</legend>
-            <div class="choice-group">
-              <label class="choice"><input type="radio" name="category" value="베이커리" required><span>🥐 베이커리</span></label>
-              <label class="choice"><input type="radio" name="category" value="디저트"><span>🍰 디저트</span></label>
-              <label class="choice"><input type="radio" name="category" value="간편식"><span>🍱 간편식</span></label>
-              <label class="choice"><input type="radio" name="category" value="밀키트"><span>🍲 밀키트</span></label>
-            </div>
-          </fieldset>
+          <div class="field">
+            <label for="category">카테고리 <span class="required">*</span></label>
+            <select id="category" name="category" required>
+              <option value="" disabled selected>카테고리를 선택해 주세요</option>
+              <option value="베이커리">베이커리</option>
+              <option value="디저트">디저트</option>
+              <option value="간편식">간편식</option>
+              <option value="밀키트">밀키트</option>
+              <option value="음료·커피">음료·커피</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
 
           <div class="field">
             <label for="language">콘텐츠 언어</label>
@@ -132,12 +140,6 @@
               <option value="en">English</option>
             </select>
           </div>
-
-          <div class="field">
-            <label for="referral">추천인 코드 <span class="optional">(선택)</span></label>
-            <input id="referral" type="text" placeholder="추천인 코드가 있다면 입력해 주세요" autocomplete="off">
-          </div>
-
           <label class="agree"><input id="marketing" type="checkbox"><span>이벤트·혜택 등 마케팅 정보 수신에 동의합니다. (선택)</span></label>
 
           <div class="btn-row">
@@ -183,7 +185,8 @@ signupForm.addEventListener('submit', e => {
     password: document.querySelector('#password').value
   };
 
-  if (Auth.getUsers().some(user => user.email === accountData.email)) {
+  const users = JSON.parse(localStorage.getItem('foodiing-users') || '[]');
+  if (users.some(user => user.email.toLowerCase() === accountData.email.toLowerCase())) {
     msg.textContent = '이미 가입된 이메일입니다.';
     return;
   }
@@ -231,16 +234,16 @@ makerForm.addEventListener('submit', e => {
       document.querySelector('#marketing').checked
   };
 
-  const result = Auth.signup(accountData, makerData);
-
-  if (!result.success) {
-    makerMsg.textContent = result.message;
+  try {
+    const users = JSON.parse(localStorage.getItem('foodiing-users') || '[]');
+    users.push({ ...accountData, maker: makerData });
+    localStorage.setItem('foodiing-users', JSON.stringify(users));
+  } catch (error) {
+    makerMsg.textContent = '가입 정보를 저장하지 못했습니다. 다시 시도해 주세요.';
     return;
   }
 
-  alert('FOODiing 회원가입이 완료되었습니다!');
-
-  location.href = 'index.html';
+  window.location.replace('./index.html');
 });
 
 // 카카오 로그인은 시연용 안내
