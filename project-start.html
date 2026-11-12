@@ -49,6 +49,7 @@
     <section class="maker-section">
       <h2>제품 및 생산 정보 <span class="required">필수</span></h2>
       <div class="info-box"><span class="info-icon" aria-hidden="true">i</span><div><strong>펀딩 목표 금액 자동 산출</strong><p>제품명과 재료를 입력하면 FOODiing의 카테고리별 표준 제조원가와 최소 생산 기준을 반영해 권장 펀딩 목표 금액을 계산해 드려요.</p></div></div>
+      <div class="sample-bar"><span>시연용: 두쫀쿠 레시피·원가 조건과 메이커 정보를 한 번에 채워요.</span><button type="button" class="btn btn-ghost" id="fill-sample">예시 채우기</button></div>
       <div class="field"><label for="product-name">제품명 <span class="required">필수</span></label><input id="product-name" type="text" placeholder="예: 두바이 쫀득 쿠키" required></div>
       <div class="field">
         <label>재료 정보 <span class="required">필수</span></label>
@@ -220,6 +221,37 @@ function calculateCost() {
     recommendedGoal
   };
 }
+
+document.querySelector('#fill-sample').addEventListener('click', () => {
+  const list = document.querySelector('#ingredient-list');
+  while (list.children.length > 1) list.lastElementChild.remove();
+  const items = [
+    ['피스타치오 페이스트', 12, 74],
+    ['냉동 카다이프', 10, 12.4],
+    ['마시멜로', 18, 160 / 18],
+    ['무가염 버터', 5, 16.6],
+    ['화이트 커버춰 초콜릿', 4, 28.5],
+    ['코코아파우더', 1, 68]
+  ];
+  items.forEach((_, index) => {
+    if (index > 0) document.querySelector('#add-ingredient').click();
+  });
+  [...list.children].forEach((row, index) => {
+    row.querySelector('.ingredient-name').value = items[index][0];
+    row.querySelector('.ingredient-amount').value = items[index][1];
+    row.querySelector('.ingredient-unit').value = 'g';
+    row.querySelector('.ingredient-price').value = items[index][2];
+  });
+
+  document.querySelector('#product-name').value = '두바이 쫀득 쿠키 (두쫀쿠 50g, 1개입)';
+  document.querySelector('#main-category').value = '푸드 > 디저트·간식';
+  document.querySelector('input[name="business-type"][value="개인"]').checked = true;
+  document.querySelector('input[name="shipping"][value="배송 있음"]').checked = true;
+  const taxEmail = document.querySelector('#tax-email');
+  if (!taxEmail.value) taxEmail.value = document.querySelector('#representative-email').value;
+  calculateCost();
+  document.querySelector('#message').textContent = '두쫀쿠 재료와 프로젝트 기본 정보를 채웠습니다. 필요한 내용을 수정한 뒤 저장해 주세요.';
+});
 
 form.addEventListener('input', calculateCost);
 form.addEventListener('change', calculateCost);

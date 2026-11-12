@@ -1050,7 +1050,7 @@ main { flex: 1; }
 .qr-connect { flex-direction: column; align-items: stretch; }
 .qr-scan-photo { position: relative; width: min(100%, 620px); margin: 0 auto; overflow: hidden; background: #f4f2ef; }
 .qr-scan-photo img { display: block; width: 100%; height: auto; }
-.qr-scan-target { position: absolute; top: 39.5%; left: 55.2%; width: 5.6%; aspect-ratio: 1; border: 2px solid #d9483e; box-shadow: 0 0 0 999px #21160d08, 0 0 12px #d9483e99; animation: qr-target-pulse .8s ease-in-out infinite alternate; }
+.qr-scan-target { position: absolute; top: 41%; left: 55.6%; width: 3.8%; aspect-ratio: 1; border: 2px solid #d9483e; box-shadow: 0 0 0 999px #21160d08, 0 0 12px #d9483e99; animation: qr-target-pulse .8s ease-in-out infinite alternate; }
 .qr-scan-beam { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #ed4c43 40%, #fff 50%, #ed4c43 60%, transparent); box-shadow: 0 0 12px #e9473e99; animation: qr-photo-sweep 1.4s ease-in-out infinite alternate; }
 .qr-connect-copy { text-align: center; }
 @keyframes qr-photo-sweep { to { top: calc(100% - 3px); } }
