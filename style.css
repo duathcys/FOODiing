@@ -1044,3 +1044,26 @@ main { flex: 1; }
 .toast b { color: var(--gold); font-size: 11px; letter-spacing: .5px; } .toast span { font-size: 13px; line-height: 1.5; }
 .toast.out { opacity: 0; }
 @keyframes toast-in { from { transform: translateY(-8px); opacity: 0; } }
+
+/* ===== Design pass 2: flatter, fewer filled boxes ===== */
+.hero-photo { background-image: url('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1400&q=85'); background-position: center; }
+.hero-photo .tag { border-radius: 2px; }
+.choice span { border-radius: 4px; }
+.ingredient-row input, .ingredient-row select { height: 46px; padding: 0 14px; border: 1px solid var(--line); border-radius: 4px !important; background: #fffefa; color: var(--ink); font: inherit; font-size: 14px; outline: none; }
+.ingredient-row input:focus, .ingredient-row select:focus { border-color: #9a7561; box-shadow: 0 0 0 3px var(--cream); }
+.ingredient-row { grid-template-columns: 1.3fr .8fr .6fr 1fr 46px; gap: 8px; }
+.remove-ingredient { height: 46px; border: 1px solid var(--line); background: transparent; color: var(--muted); }
+.info-box, .story-highlight { background: transparent; border: 0; border-left: 3px solid var(--gold); border-radius: 0 !important; padding: 4px 0 4px 14px; }
+.info-icon, .notice-icon { display: none; }
+.notice-box { background: transparent; border: 0; border-top: 1px solid var(--line-strong); border-radius: 0 !important; padding: 16px 0 0; }
+.cost-result, .maker-product-info { background: transparent; border: 1px solid var(--line); border-radius: 4px !important; }
+.recommended-goal { background: var(--cream); color: var(--ink); border-top: 2px solid var(--ink); border-radius: 0 !important; }
+.recommended-goal strong { color: var(--red); }
+.recommended-goal small { color: var(--muted); }
+.maker-avatar { background: var(--cream); color: var(--ink); border: 1px solid var(--line-strong); }
+.confirm-date { background: transparent; color: var(--red); border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); border-radius: 0 !important; padding: 16px 0; }
+.toast { background: var(--card); color: var(--ink); border: 1px solid var(--line-strong); border-left: 3px solid var(--red); border-radius: 2px; box-shadow: 0 4px 14px #0002; }
+.toast b { color: var(--red); }
+.detail-panel, .aside-card, .aside-maker, .demo-card, .reward-option, .check-card, .shipping-card { border-radius: 4px !important; background: transparent; }
+.detail-cover, .story-image { border-radius: 4px !important; }
+.btn { border-radius: 4px; }

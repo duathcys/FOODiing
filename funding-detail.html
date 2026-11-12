@@ -134,7 +134,7 @@ function startLiveFunding(maker, detail) {
   const render = (pct) => {
     const amount = pct >= 100 ? goal : Math.round(goal * pct / 100 / 100) * 100;
     const label = `${Math.floor(pct)}% 달성`;
-    bars.forEach(bar => { bar.style.transition = 'width .6s ease'; bar.style.width = `${pct}%`; });
+    bars.forEach(bar => { bar.style.transition = 'width .25s linear'; bar.style.width = `${pct}%`; });
     text('#detail-funding-text', label); text('#aside-funding', label); text('#mobile-funding', `${Math.floor(pct)}%`);
     text('#detail-current-amount', won(amount));
     document.querySelectorAll('.detail-amounts strong')[2].textContent = `${Math.max(1, Math.round(amount / (price * 1.4))).toLocaleString('ko-KR')}명`;
@@ -142,16 +142,16 @@ function startLiveFunding(maker, detail) {
   text('#detail-remaining', '실시간 펀딩 진행 중'); text('#aside-remaining', '진행 중');
   let pct = 0; render(0);
   const timer = setInterval(() => {
-    pct = Math.min(100, pct + 2 + Math.random() * 4);
+    pct = Math.min(100, pct + 2 + Math.random() * 3.5);
     render(pct);
     if (pct < 100) return;
     clearInterval(timer);
     text('#detail-remaining', '목표 달성'); text('#aside-remaining', '목표 달성');
     localStorage.setItem('foodiing-funding-done', '1');
     foodiingToast('펀딩이 100% 달성했습니다.');
-    setTimeout(() => foodiingToast('프로젝트 미팅 협의 페이지로 이동합니다.', '다음 단계'), 2200);
-    setTimeout(() => { location.href = 'project-meeting.html'; }, 4500);
-  }, 900);
+    setTimeout(() => foodiingToast('프로젝트 미팅 협의 페이지로 이동합니다.', '다음 단계'), 1500);
+    setTimeout(() => { location.href = 'project-meeting.html'; }, 3500);
+  }, 250);
 }
 
 function supportProject() {
