@@ -48,7 +48,14 @@
       <section class="detail-panel" id="story-section">
         <p class="eyebrow">PROJECT STORY</p><h2>새로운 한 입이 식탁의 즐거움이 되도록</h2>
         <p class="story-lead" id="story-lead">익숙한 디저트에 새로운 재료와 정성을 더했습니다. 좋은 재료의 풍미와 재미있는 식감을 한 상자에 담아 보내드릴게요.</p>
+        <div id="maker-product-details" class="maker-product-details" hidden>
+          <div><h3>제품 소개</h3><p id="maker-description"></p></div>
+          <div><h3>FOODiing이 제안하는 특별한 레시피</h3><p id="maker-difference"></p></div>
+          <div><h3>상품 구성 및 펀딩 안내</h3><p id="maker-composition"></p></div>
+          <div><h3>보관 및 알레르기 안내</h3><p id="maker-storage"></p><p id="maker-caution"></p></div>
+        </div>
         <img class="story-image" id="story-image" src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1200&q=85" alt="정성껏 만든 디저트">
+        <div class="maker-gallery" id="maker-gallery" aria-label="제품 추가 이미지"></div>
         <h3>재료의 매력을 가장 맛있게</h3><p>한 번 더 먹고 싶은 맛을 만들기 위해 재료의 조합과 식감을 꼼꼼하게 다듬었습니다. 생산부터 포장까지 신선하게 전달할 수 있도록 준비하고 있습니다.</p>
         <div class="story-highlight"><span>FOODiing의 약속</span><strong>좋은 아이디어가 좋은 먹거리로 이어지도록</strong><p>메이커와 함께 제품을 다듬고, 서포터에게 진행 상황을 투명하게 공유합니다.</p></div>
         <h3>이 프로젝트를 시작한 이유</h3><p>새로운 먹거리를 함께 발견하고 싶은 마음에서 시작했습니다. 여러분의 응원은 첫 생산과 다음 계절을 준비하는 힘이 됩니다.</p>
@@ -108,8 +115,23 @@ if (makerDemo && makerDetail) {
     document.querySelector('#detail-image').src = makerDetail.images.main;
     document.querySelector('#story-image').src = makerDetail.images.main;
   }
+  const makerGallery = document.querySelector('#maker-gallery');
+  const makerImages = [...(makerDetail.images?.additional || []), ...(makerDetail.images?.preview || [])];
+  makerImages.forEach((src, index) => {
+    const image = document.createElement('img');
+    image.src = src;
+    image.alt = `${makerDetail.title || makerDemo.productName} 추가 이미지 ${index + 1}`;
+    makerGallery.appendChild(image);
+  });
   document.querySelector('#detail-image').alt = makerDetail.title || makerDemo.productName;
   document.querySelector('#story-lead').textContent = makerDetail.description || makerDetail.story || makerDetail.subtitle || '';
+  const productDetails = document.querySelector('#maker-product-details');
+  productDetails.hidden = false;
+  document.querySelector('#maker-description').textContent = makerDetail.description || '';
+  document.querySelector('#maker-difference').textContent = makerDetail.difference || '';
+  document.querySelector('#maker-composition').textContent = makerDetail.composition || '';
+  document.querySelector('#maker-storage').textContent = makerDetail.storage ? `보관 안내 · ${makerDetail.storage}` : '';
+  document.querySelector('#maker-caution').textContent = makerDetail.caution ? `알레르기 및 유의사항 · ${makerDetail.caution}` : '';
   startLiveFunding(makerDemo, makerDetail);
 }
 
