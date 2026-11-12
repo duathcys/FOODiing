@@ -1047,6 +1047,14 @@ main { flex: 1; }
 .qr-connect { display: flex; align-items: center; gap: 16px; margin: 22px 0; padding: 18px; border: 1px solid var(--line); animation: demo-reveal .45s ease both; }
 .qr-connect strong { font-size: 15px; }
 .qr-connect p { margin: 5px 0 0; }
+.qr-connect { flex-direction: column; align-items: stretch; }
+.qr-scan-photo { position: relative; width: min(100%, 620px); margin: 0 auto; overflow: hidden; background: #f4f2ef; }
+.qr-scan-photo img { display: block; width: 100%; height: auto; }
+.qr-scan-target { position: absolute; top: 39.5%; left: 55.2%; width: 5.6%; aspect-ratio: 1; border: 2px solid #d9483e; box-shadow: 0 0 0 999px #21160d08, 0 0 12px #d9483e99; animation: qr-target-pulse .8s ease-in-out infinite alternate; }
+.qr-scan-beam { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #ed4c43 40%, #fff 50%, #ed4c43 60%, transparent); box-shadow: 0 0 12px #e9473e99; animation: qr-photo-sweep 1.4s ease-in-out infinite alternate; }
+.qr-connect-copy { text-align: center; }
+@keyframes qr-photo-sweep { to { top: calc(100% - 3px); } }
+@keyframes qr-target-pulse { to { box-shadow: 0 0 0 999px #21160d08, 0 0 18px #ed493e; } }
 .scan-frame { position: relative; flex: 0 0 70px; height: 70px; overflow: hidden; border: 2px solid var(--red); border-radius: 8px; background: linear-gradient(90deg, transparent 49%, #eadfd4 50%, transparent 51%), linear-gradient(transparent 49%, #eadfd4 50%, transparent 51%); }
 .scan-frame::before, .scan-frame::after { position: absolute; width: 14px; height: 14px; border: 3px solid var(--brown); content: ""; }
 .scan-frame::before { top: 7px; left: 7px; border-right: 0; border-bottom: 0; }
