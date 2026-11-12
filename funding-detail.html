@@ -116,15 +116,27 @@ if (makerDemo && makerDetail) {
     document.querySelector('#story-image').src = makerDetail.images.main;
   }
   const makerGallery = document.querySelector('#maker-gallery');
-  const makerImages = [...(makerDetail.images?.additional || []), ...(makerDetail.images?.preview || [])];
+  const makerAdditional = makerDetail.images?.additional || [];
+  const makerPreview = makerDetail.images?.preview || [];
+  const makerImages = [...makerAdditional, ...makerPreview];
+  const recipeCaptions = ['01. 고소한 피스타치오 필링', '02. 바삭한 카다이프', '03. 카다이프를 준비하는 과정'];
   makerImages.forEach((src, index) => {
+    const figure = document.createElement('figure');
+    figure.className = 'maker-gallery-item';
     const image = document.createElement('img');
     image.src = src;
     image.alt = `${makerDetail.title || makerDemo.productName} 추가 이미지 ${index + 1}`;
-    makerGallery.appendChild(image);
+    figure.appendChild(image);
+    const recipeIndex = index - makerAdditional.length;
+    if (makerPreview.length === 3 && recipeIndex >= 0 && recipeIndex < recipeCaptions.length) {
+      const caption = document.createElement('figcaption');
+      caption.textContent = recipeCaptions[recipeIndex];
+      figure.appendChild(caption);
+    }
+    makerGallery.appendChild(figure);
   });
   document.querySelector('#detail-image').alt = makerDetail.title || makerDemo.productName;
-  document.querySelector('#story-lead').textContent = makerDetail.description || makerDetail.story || makerDetail.subtitle || '';
+  document.querySelector('#story-lead').textContent = makerDetail.story || makerDetail.description || makerDetail.subtitle || '';
   const productDetails = document.querySelector('#maker-product-details');
   productDetails.hidden = false;
   document.querySelector('#maker-description').textContent = makerDetail.description || '';
