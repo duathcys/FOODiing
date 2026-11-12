@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f6ef">
+<title>프로젝트 미팅 협의 | FOODiing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="announce">세상에 없던 맛있는 아이디어, FOODiing에서 만나요.</div>
+<div class="wrap">
+<header class="site-header" id="site-header"><div class="top"><a class="brand" href="index.html"><img src="FOODiing-logo-transparent.png" alt="" width="112" height="56"><span class="brandname">FOODiing</span></a><div class="search" role="search"><span>어떤 새로운 레시피를 만나고 싶나요?</span><span aria-hidden="true">⌕</span></div><div class="actions"><a class="btn btn-outline" href="project-start.html">프로젝트 시작하기</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div></div><nav class="nav" id="site-nav" aria-label="주요 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a><a href="funding.html#projects">지금 인기</a><a href="funding.html#projects">마감 임박</a><a href="introduction.html#story">아이디어 제안자 및 브랜드 이야기</a><a class="nav-aside" href="index.html">펀딩이 처음이라면 ↗</a></nav></header>
+<main class="demo-wrap">
+  <div class="demo-head"><span class="demo-step">STEP 03 · 내부 검토 및 미팅</span><h1>프로젝트 미팅 협의</h1><p>펀딩 목표를 달성했어요. 신세계푸드 내부 담당자와 진행할 미팅 일정과 레시피를 입력해 주세요.</p></div>
+  <section class="demo-card"><div class="demo-product"><img id="product-image" alt="프로젝트 대표 이미지"><div><strong id="product-name">프로젝트</strong><p id="product-sub"></p><a class="more" id="public-link" href="funding-detail.html?makerProject=1">공개 상세페이지 보기 ↗</a></div></div></section>
+  <section class="demo-card" id="meeting-card"><form class="meeting-form" id="meeting-form">
+    <div><strong>희망 미팅 날짜 (3개)</strong><p>가능한 날짜 3개를 선택해 주세요. 내부 담당자가 이 중 하나로 확정합니다.</p></div>
+    <div class="date-grid"><label>1순위<input type="date" class="mdate" required></label><label>2순위<input type="date" class="mdate" required></label><label>3순위<input type="date" class="mdate" required></label></div>
+    <label>내부 공유 레시피<textarea id="internal-recipe" placeholder="재료 배합, 제조 순서, 테스트 시 참고할 내용을 입력해 주세요." required></textarea></label>
+    <div class="demo-caution">입력한 레시피는 미팅 검토를 위한 내부 자료로 사용됩니다. 미팅이 성사되지 않거나 상품화 협의가 중단되면 해당 레시피 정보는 내부 절차에 따라 폐기 처리됩니다.</div>
+    <button class="btn btn-gold" type="submit">미팅 일정 전달하기</button><div class="message" id="form-message" aria-live="polite"></div>
+  </form>
+  <div class="wait-box hidden" id="wait-box"><span class="spinner" aria-hidden="true"></span><div><strong>내부 담당자와 일정을 협의하고 있어요</strong><p>잠시만 기다려 주세요.</p></div></div>
+  <div class="hidden" id="done-box"><span class="demo-step">미팅 일정 확정</span><h2>내부 담당자와 미팅 일정이 협의되었어요</h2><strong class="confirm-date" id="confirmed-date"></strong><p id="confirmed-from"></p><a class="btn btn-gold" href="index.html">홈으로 돌아가기</a></div></section>
+</main>
+<footer class="footer"><span>© FOODiing · 맛있는 펀딩</span><nav aria-label="푸터 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a></nav></footer>
+</div>
+<script src="script.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const maker = JSON.parse(localStorage.getItem('foodiing-project-maker') || 'null');
+  const detail = JSON.parse(localStorage.getItem('foodiing-project-detail') || 'null');
+  if (!maker || !detail) { alert('먼저 프로젝트 정보와 상세페이지를 저장해 주세요.'); location.replace('project-start.html'); return; }
+  $('#product-name').textContent = detail.title || maker.productName;
+  $('#product-sub').textContent = detail.subtitle || '';
+  if (detail.images && detail.images.main) $('#product-image').src = detail.images.main;
+  const tomorrow = new Date(Date.now() + 864e5).toISOString().slice(0, 10);
+  const inputs = [...document.querySelectorAll('.mdate')];
+  inputs.forEach(i => i.min = tomorrow);
+  const fmt = v => new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }).format(new Date(v + 'T00:00:00'));
+  $('#meeting-form').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!e.currentTarget.reportValidity()) return;
+    const dates = inputs.map(i => i.value);
+    if (new Set(dates).size < 3) { $('#form-message').textContent = '서로 다른 날짜 3개를 선택해 주세요.'; return; }
+    $('#meeting-form').classList.add('hidden');
+    $('#wait-box').classList.remove('hidden');
+    const picked = dates[Math.floor(Math.random() * 3)];
+    localStorage.setItem('foodiing-project-meeting', JSON.stringify({ recipe: $('#internal-recipe').value.trim(), candidates: dates, confirmed: picked }));
+    setTimeout(() => {
+      $('#wait-box').classList.add('hidden');
+      $('#confirmed-date').textContent = fmt(picked);
+      $('#confirmed-from').textContent = `희망하신 ${dates.length}개 날짜 중 내부 담당자와 협의된 일정입니다.`;
+      $('#done-box').classList.remove('hidden');
+      foodiingToast(`내부 담당자와 ${fmt(picked)}로 미팅 일정이 협의되었습니다.`);
+    }, 5000);
+  });
+})();
+</script>
+</body>
+</html>

@@ -111,7 +111,7 @@
     </section>
 
     <section class="maker-section">
-      <h2>🚫 성인 인증 필요 여부 <span class="optional">(선택)</span></h2>
+      <h2>성인 인증 필요 여부 <span class="optional">(선택)</span></h2>
       <a class="guide-link" href="https://www.wadiz.io/web/maker/makercenter/board/basic/1438" target="_blank" rel="noreferrer">성인 인증 프로젝트 가이드 ↗</a>
       <p class="field-help">19세 이상만 사용할 수 있는 리워드가 포함된 경우 선택해 주세요. 선택 시 성인 인증을 완료한 서포터만 프로젝트에 참여할 수 있어요.</p>
       <label class="check-card"><input id="adult-required" type="checkbox"><span><strong>성인 인증이 필요한 리워드가 포함되어 있어요.</strong><small>무알콜 주류 및 전통주, 레이저 포인트, 성인용품·서비스, 담배 등 성인 인증이 필요한 리워드가 1개 이상 포함되어 있어요.</small></span></label>
@@ -132,7 +132,13 @@
 </div>
 <script src="script.js"></script>
 <script>
+const currentUser = JSON.parse(localStorage.getItem('foodiing-current-user') || 'null');
+if (!currentUser) { alert('프로젝트를 시작하려면 먼저 로그인해 주세요.'); location.replace('login.html'); }
 const form = document.querySelector('#project-form');
+if (currentUser) {
+  document.querySelector('#representative').value = currentUser.name || '';
+  document.querySelector('#representative-email').value = currentUser.email || '';
+}
 const ingredientList = document.querySelector('#ingredient-list');
 const formatWon = value => `${Math.round(value).toLocaleString('ko-KR')}원`;
 const categoryStandards = {
@@ -251,6 +257,7 @@ form.addEventListener('submit', event => {
     shipping: document.querySelector('input[name="shipping"]:checked').value,
     createdAt: new Date().toISOString()
   };
+  ['foodiing-project-detail','foodiing-project-meeting','foodiing-funding-done'].forEach(k => localStorage.removeItem(k));
   localStorage.setItem('foodiing-project-maker', JSON.stringify(projectMakerData));
   window.location.href = 'project-detail.html';
 });

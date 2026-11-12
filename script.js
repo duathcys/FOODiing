@@ -1,4 +1,16 @@
 /* FOODiing — shared behaviour: mobile menu + category filter */
+/* In-page notification (used by the demo flow) */
+window.foodiingToast = function (message, title) {
+  var box = document.getElementById('toast-box');
+  if (!box) { box = document.createElement('div'); box.id = 'toast-box'; box.setAttribute('aria-live', 'polite'); document.body.appendChild(box); }
+  var t = document.createElement('div');
+  t.className = 'toast';
+  var h = document.createElement('b'); h.textContent = title || 'FOODiing 알림';
+  var p = document.createElement('span'); p.textContent = message;
+  t.append(h, p); box.appendChild(t);
+  setTimeout(function () { t.classList.add('out'); setTimeout(function () { t.remove(); }, 400); }, 5000);
+};
+
 (function () {
   'use strict';
 

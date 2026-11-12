@@ -110,14 +110,48 @@ if (makerDemo && makerDetail) {
   }
   document.querySelector('#detail-image').alt = makerDetail.title || makerDemo.productName;
   document.querySelector('#story-lead').textContent = makerDetail.description || makerDetail.story || makerDetail.subtitle || '';
-  document.querySelector('#detail-funding-text').textContent = '100% 달성';
-  document.querySelector('#aside-funding').textContent = '100% 달성';
-  document.querySelector('#detail-remaining').textContent = '목표 달성';
-  document.querySelector('#aside-remaining').textContent = '목표 달성';
-  document.querySelector('#mobile-funding').textContent = '100%';
-  document.querySelector('#detail-current-amount').textContent = `${Math.round(makerDemo.goalAmount || 0).toLocaleString('ko-KR')}원`;
-  document.querySelector('#detail-progress-bar').style.width = '100%';
-  document.querySelectorAll('.detail-aside .detail-progress i').forEach(bar => bar.style.width = '100%');
+  startLiveFunding(makerDemo, makerDetail);
+}
+
+function startLiveFunding(maker, detail) {
+  const won = v => `${Math.round(v).toLocaleString('ko-KR')}원`;
+  const goal = Math.round(maker.goalAmount) || 5000000;
+  const price = Math.round(maker.costs && maker.costs.sellingPrice) || 19900;
+  const rewards = [price, Math.round(price * 1.9 / 100) * 100, Math.round(price * 2.7 / 100) * 100];
+  document.querySelectorAll('.reward-body b').forEach((el, i) => el.textContent = won(rewards[i]));
+  document.querySelectorAll('.detail-amounts strong')[1].textContent = won(goal);
+  const h3 = document.querySelectorAll('#story-section h3');
+  if (detail.difference) h3[0].nextElementSibling.textContent = detail.difference;
+  if (detail.story) h3[1].nextElementSibling.textContent = detail.story;
+  const notice = document.querySelector('.notice-list');
+  [['제품 구성', detail.composition], ['보관·섭취', detail.storage], ['알레르기', detail.caution]].reverse().forEach(([k, v]) => {
+    if (!v) return;
+    const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+    dt.textContent = k; dd.textContent = v; row.append(dt, dd); notice.prepend(row);
+  });
+  const text = (id, v) => document.querySelector(id).textContent = v;
+  const bars = document.querySelectorAll('#detail-progress-bar, .detail-aside .detail-progress i');
+  const render = (pct) => {
+    const amount = pct >= 100 ? goal : Math.round(goal * pct / 100 / 100) * 100;
+    const label = `${Math.floor(pct)}% 달성`;
+    bars.forEach(bar => { bar.style.transition = 'width .6s ease'; bar.style.width = `${pct}%`; });
+    text('#detail-funding-text', label); text('#aside-funding', label); text('#mobile-funding', `${Math.floor(pct)}%`);
+    text('#detail-current-amount', won(amount));
+    document.querySelectorAll('.detail-amounts strong')[2].textContent = `${Math.max(1, Math.round(amount / (price * 1.4))).toLocaleString('ko-KR')}명`;
+  };
+  text('#detail-remaining', '실시간 펀딩 진행 중'); text('#aside-remaining', '진행 중');
+  let pct = 0; render(0);
+  const timer = setInterval(() => {
+    pct = Math.min(100, pct + 2 + Math.random() * 4);
+    render(pct);
+    if (pct < 100) return;
+    clearInterval(timer);
+    text('#detail-remaining', '목표 달성'); text('#aside-remaining', '목표 달성');
+    localStorage.setItem('foodiing-funding-done', '1');
+    foodiingToast('펀딩이 100% 달성했습니다.');
+    setTimeout(() => foodiingToast('프로젝트 미팅 협의 페이지로 이동합니다.', '다음 단계'), 2200);
+    setTimeout(() => { location.href = 'project-meeting.html'; }, 4500);
+  }, 900);
 }
 
 function supportProject() {
