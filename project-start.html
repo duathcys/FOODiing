@@ -49,7 +49,7 @@
     <section class="maker-section">
       <h2>제품 및 생산 정보 <span class="required">필수</span></h2>
       <div class="info-box"><span class="info-icon" aria-hidden="true">i</span><div><strong>펀딩 목표 금액 자동 산출</strong><p>제품명과 재료를 입력하면 FOODiing의 카테고리별 표준 제조원가와 최소 생산 기준을 반영해 권장 펀딩 목표 금액을 계산해 드려요.</p></div></div>
-      <div class="sample-bar"><span>시연용: 두쫀쿠 레시피·원가 조건과 메이커 정보를 한 번에 채워요.</span><button type="button" class="btn btn-ghost" id="fill-sample">예시 채우기</button></div>
+      <div class="sample-bar"><span>시연용: 두쫀쿠(50g, 1개입) 레시피·원가 조건과 메이커 정보를 한 번에 채워요.</span><button type="button" class="btn btn-ghost" id="fill-sample">예시 채우기</button></div>
       <div class="field"><label for="product-name">제품명 <span class="required">필수</span></label><input id="product-name" type="text" placeholder="예: 두바이 쫀득 쿠키" required></div>
       <div class="field">
         <label>재료 정보 <span class="required">필수</span></label>
@@ -76,12 +76,14 @@
           <option value="푸드 &gt; 해당 없음">푸드 &gt; 해당 없음</option>
         </select>
       </div>
+      <div class="field amount-field"><label for="selling-price">소비자 판매가 (VAT 포함) <span class="required">필수</span></label><input id="selling-price" type="number" min="1" step="any" placeholder="예: 5000" required></div>
       <div class="cost-result" id="cost-result" aria-live="polite">
-        <div class="cost-result-header"><strong>FOODiing 상품화 예상 결과</strong><span>내부 기준 자동 산출</span></div>
-        <div class="result-item"><span>권장 최소 생산 수량</span><strong id="recommended-quantity">산출 대기</strong></div>
+        <div class="cost-result-header"><strong>FOODiing 상품화 예상 결과</strong><span>신세계푸드 제조 단계 기준</span></div>
+        <div class="result-item"><span>생산·판매 수량 (손익분기 판매량 기준)</span><strong id="recommended-quantity">산출 대기</strong></div>
+        <table class="pl-table" id="pl-table" hidden><thead><tr><th>항목</th><th>개당</th><th id="pl-total-head">손익분기 기준</th><th>10,000개 전량 판매</th></tr></thead><tbody id="pl-body"></tbody></table>
         <div class="recommended-goal"><span>FOODiing 권장 최소 펀딩 목표 금액</span><strong id="recommended-goal">산출 대기</strong><small id="goal-description">제품 정보와 카테고리를 입력하면 자동으로 산출됩니다.</small></div>
       </div>
-      <p class="field-help">※ 예상 결과는 FOODiing 내부 제조 기준을 바탕으로 산출한 참고 정보입니다. 실제 생산 수량과 펀딩 목표 금액은 신세계푸드의 제조 가능성 및 최종 원가 검토 후 확정됩니다.</p>
+      <p class="field-help">※ 원재료 단가는 공개 판매가격 기준이며, 제조 인건비·제조경비·포장비·물류비, 창작자 로열티 5%, 초기 개발·출시비 500만 원은 실제 견적이 아닌 모의 사업 가정입니다. 실제 생산 수량과 목표 금액은 신세계푸드의 제조 가능성 및 최종 원가 검토 후 확정됩니다.</p>
       <div class="notice-box">
         <div class="notice-title">
           <span class="notice-icon" aria-hidden="true">!</span>
@@ -142,14 +144,8 @@ if (currentUser) {
 }
 const ingredientList = document.querySelector('#ingredient-list');
 const formatWon = value => `${Math.round(value).toLocaleString('ko-KR')}원`;
-const categoryStandards = {
-  '푸드 > 디저트·간식': { processPerUnit: 700, packagingPerUnit: 300, setupCost: 300000, overheadRate: 0.08, targetMargin: 0.35, moq: 1000 },
-  '푸드 > 베이커리': { processPerUnit: 650, packagingPerUnit: 350, setupCost: 350000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 },
-  '푸드 > 음료·커피': { processPerUnit: 500, packagingPerUnit: 250, setupCost: 250000, overheadRate: 0.08, targetMargin: 0.30, moq: 2000 },
-  '푸드 > 간편식': { processPerUnit: 900, packagingPerUnit: 450, setupCost: 500000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 },
-  '푸드 > 밀키트': { processPerUnit: 1100, packagingPerUnit: 500, setupCost: 600000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 },
-  '푸드 > 해당 없음': { processPerUnit: 800, packagingPerUnit: 400, setupCost: 400000, overheadRate: 0.08, targetMargin: 0.30, moq: 1000 }
-};
+const MODEL = { yieldRate: 0.95, vat: 1.1, labor: 720, overhead: 150, packaging: 300, logistics: 200, royalty: 0.05, setup: 5000000, channel: 0.10 };
+const signedWon = value => `${value < 0 ? '-' : ''}${Math.abs(Math.round(value)).toLocaleString('ko-KR')}원`;
 
 document.querySelector('#add-ingredient').addEventListener('click', () => {
   const row = document.createElement('div');
@@ -175,50 +171,74 @@ ingredientList.addEventListener('click', event => {
 
 function calculateCost() {
   const category = document.querySelector('#main-category').value;
-  let ingredientPerUnit = 0;
+  const price = Number(document.querySelector('#selling-price').value) || 0;
+  let rawPerUnit = 0;
   document.querySelectorAll('.ingredient-row').forEach(row => {
-    ingredientPerUnit += (Number(row.querySelector('.ingredient-amount').value) || 0) *
+    rawPerUnit += (Number(row.querySelector('.ingredient-amount').value) || 0) *
       (Number(row.querySelector('.ingredient-price').value) || 0);
   });
 
-  const standard = categoryStandards[category];
   const quantityElement = document.querySelector('#recommended-quantity');
   const goalElement = document.querySelector('#recommended-goal');
   const descriptionElement = document.querySelector('#goal-description');
+  const table = document.querySelector('#pl-table');
+  const plBody = document.querySelector('#pl-body');
 
-  if (!standard) {
+  if (!category || !rawPerUnit || !price) {
     quantityElement.textContent = '산출 대기';
     goalElement.textContent = '산출 대기';
-    descriptionElement.textContent = '카테고리를 선택하면 내부 기준에 따라 자동 산출됩니다.';
+    table.hidden = true;
+    descriptionElement.textContent = '카테고리, 재료, 판매가를 입력하면 자동으로 산출됩니다.';
     return null;
   }
 
-  const processPerUnit = standard.processPerUnit + standard.packagingPerUnit;
-  const baseVariableCost = ingredientPerUnit + processPerUnit;
-  const variableCostPerUnit = baseVariableCost * (1 + standard.overheadRate);
-  const sellingPrice = Math.ceil((variableCostPerUnit / (1 - standard.targetMargin)) / 100) * 100;
-  const contributionMargin = sellingPrice - variableCostPerUnit;
-  const breakEvenQuantity = contributionMargin > 0
-    ? Math.ceil(standard.setupCost / contributionMargin)
-    : 0;
-  const recommendedQuantity = Math.ceil(Math.max(breakEvenQuantity, standard.moq) / 100) * 100;
-  const recommendedGoal = sellingPrice * recommendedQuantity;
+  const m = MODEL;
+  const ingredientCost = Math.round(rawPerUnit / m.vat / m.yieldRate);
+  const unitCost = ingredientCost + m.labor + m.overhead + m.packaging + m.logistics;
+  const netRevenue = price / m.vat;
+  const distributionMargin = netRevenue * m.channel;
+  const supplyRevenue = netRevenue - distributionMargin;
+  const royalty = supplyRevenue * m.royalty;
+  const balance = supplyRevenue - unitCost - royalty;
+  const breakEvenQuantity = balance > 0 ? Math.ceil(m.setup / balance) : 0;
+  if (!breakEvenQuantity) {
+    table.hidden = true;
+    quantityElement.textContent = '산출 불가';
+    goalElement.textContent = '산출 불가';
+    descriptionElement.textContent = '개당 잔액이 0 이하여서 손익분기를 산출할 수 없습니다.';
+    return null;
+  }
 
-  quantityElement.textContent = recommendedQuantity.toLocaleString('ko-KR') + '개';
+  const quantity = breakEvenQuantity;
+  const setupPerUnit = m.setup / quantity;
+  const profitPerUnit = balance - setupPerUnit;
+  const recommendedGoal = quantity * price;
+  const rows = [
+    ['원재료비 (수율 95%·매입세액 공제)', ingredientCost],
+    ['제조 인건비', m.labor], ['제조경비', m.overhead], ['포장비', m.packaging], ['물류비', m.logistics],
+    ['제조·포장·물류비 합계', unitCost, 'sum'],
+    ['신세계푸드 매출 (납품가 기준)', supplyRevenue, 'sum'], ['제조·포장·물류비', -unitCost], ['창작자 로열티 (5%)', -royalty],
+    ['초기비용 차감 전 잔액', balance, 'sum'], ['초기 개발·출시비', -setupPerUnit], ['최종 예상 손익', profitPerUnit, 'sum']
+  ];
+  plBody.innerHTML = rows.map(([label, value, className]) => {
+    const isSetup = label === '초기 개발·출시비';
+    const isProfit = label === '최종 예상 손익';
+    const fullScale = isSetup ? -m.setup : isProfit ? balance * 10000 - m.setup : value * 10000;
+    const breakeven = isSetup || isProfit ? '—' : signedWon(value * quantity);
+    return `<tr class="${className || ''}"><td>${label}</td><td>${isSetup || isProfit ? '—' : signedWon(value)}</td><td>${breakeven}</td><td>${signedWon(fullScale)}</td></tr>`;
+  }).join('');
+  document.querySelector('#pl-total-head').textContent = `손익분기 ${quantity.toLocaleString('ko-KR')}개 기준`;
+  table.hidden = false;
+  quantityElement.textContent = `${quantity.toLocaleString('ko-KR')}개`;
   goalElement.textContent = formatWon(recommendedGoal);
-  descriptionElement.textContent = '제품 정보와 FOODiing 내부 제조 기준을 바탕으로 산출한 예상 금액입니다. 최종 금액은 제조 심사 후 확정됩니다.';
+  descriptionElement.textContent = `손익분기 판매량 ${quantity.toLocaleString('ko-KR')}개 × 판매가 ${formatWon(price)} 기준입니다. 최종 금액은 제조 심사 후 확정됩니다.`;
   return {
-    category,
-    ingredientPerUnit,
-    processPerUnit,
-    variableCostPerUnit,
-    sellingPrice,
-    setupCost: standard.setupCost,
-    targetMargin: standard.targetMargin,
-    breakEvenQuantity,
-    minimumOrderQuantity: standard.moq,
-    recommendedQuantity,
-    recommendedGoal
+    category, ingredientPerUnit: rawPerUnit, ingredientCost,
+    processPerUnit: unitCost - ingredientCost, variableCostPerUnit: unitCost,
+    sellingPrice: price, netRevenuePerUnit: netRevenue, distributionMarginPerUnit: distributionMargin,
+    supplyRevenuePerUnit: supplyRevenue, royaltyPerUnit: royalty, balancePerUnit: balance,
+    setupCost: m.setup, breakEvenQuantity, recommendedQuantity: quantity,
+    recommendedGoal, expectedProfit: profitPerUnit * quantity
   };
 }
 
@@ -245,6 +265,7 @@ document.querySelector('#fill-sample').addEventListener('click', () => {
 
   document.querySelector('#product-name').value = '두바이 쫀득 쿠키 (두쫀쿠 50g, 1개입)';
   document.querySelector('#main-category').value = '푸드 > 디저트·간식';
+  document.querySelector('#selling-price').value = 5000;
   document.querySelector('input[name="business-type"][value="개인"]').checked = true;
   document.querySelector('input[name="shipping"][value="배송 있음"]').checked = true;
   const taxEmail = document.querySelector('#tax-email');
