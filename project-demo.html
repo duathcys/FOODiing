@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f6ef">
+<title>프로젝트 진행 시연 | FOODiing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.demo-wrap{max-width:820px;margin:34px auto 70px;padding:0 20px}.demo-card{padding:28px;margin-bottom:16px;border:1px solid var(--line);border-radius:14px;background:#fff}.demo-card h2{margin:0 0 10px;font-size:19px}.demo-card p{color:var(--muted);font-size:13px;line-height:1.7}.demo-head{margin-bottom:22px}.demo-head h1{margin:7px 0;font-size:30px}.demo-title{color:#725b4c;font-size:12px;font-weight:700;letter-spacing:.08em}.demo-product{display:flex;align-items:center;gap:16px}.demo-product img{width:104px;height:104px;object-fit:cover;border-radius:12px;background:#f3f0e9}.demo-product strong{font-size:18px}.demo-product small{display:block;margin-top:7px;color:var(--muted)}.demo-progress-head{display:flex;justify-content:space-between;align-items:center;margin:20px 0 9px}.demo-progress-head strong{color:var(--red);font-size:24px}.demo-track{height:14px;overflow:hidden;border-radius:99px;background:#eee9df}.demo-track i{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#d88939,#bd4235);transition:width 2.2s cubic-bezier(.2,.75,.25,1)}.demo-state{margin-top:12px!important}.demo-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.demo-row .btn{min-height:46px}.meeting-form{display:grid;gap:14px;margin-top:18px}.meeting-form label{display:grid;gap:7px;font-size:13px;font-weight:700}.meeting-form input,.meeting-form textarea{width:100%;padding:12px;border:1px solid #e5e2dc;border-radius:8px;font:inherit}.meeting-form textarea{min-height:105px;resize:vertical}.demo-caution{padding:14px;border-radius:9px;background:#fff8ec;color:#74543a;font-size:12px;line-height:1.7}.demo-hidden{display:none}.demo-success{display:inline-flex;align-items:center;gap:7px;color:#36724e;font-size:12px;font-weight:700}.demo-step{display:inline-block;margin-bottom:8px;color:#a56732;font-size:11px;font-weight:800;letter-spacing:.08em}.demo-status{padding:5px 9px;border-radius:99px;background:#eef5ed;color:#477650;font-size:11px;font-weight:700}
+@media(max-width:600px){.demo-wrap{margin-top:20px;padding:0 14px}.demo-card{padding:20px}.demo-head h1{font-size:25px}.demo-product img{width:80px;height:80px}}
+</style>
+</head>
+<body>
+<div class="announce">세상에 없던 맛있는 아이디어, FOODiing에서 만나요.</div>
+<div class="wrap">
+<header class="site-header" id="site-header"><div class="top"><a class="brand" href="index.html"><img src="FOODiing-logo-transparent.png" alt="" width="112" height="56"><span class="brandname">FOODiing</span></a><div class="search" role="search"><span>어떤 새로운 레시피를 만나고 싶나요?</span><span aria-hidden="true">⌕</span></div><div class="actions"><a class="btn btn-outline" href="project-start.html">프로젝트 시작하기</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div></div><nav class="nav" id="site-nav" aria-label="주요 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a><a href="funding.html#projects">지금 인기</a><a href="funding.html#projects">마감 임박</a><a href="introduction.html#story">아이디어 제안자 및 브랜드 이야기</a><a class="nav-aside" href="index.html">펀딩이 처음이라면 ↗</a></nav></header>
+<main class="demo-wrap">
+  <div class="demo-head"><span class="demo-title">PROJECT JOURNEY · DEMO</span><h1>프로젝트 진행 현황</h1><p>프로젝트 등록부터 내부 미팅 일정 확정까지의 진행 과정을 확인해 보세요.</p></div>
+  <section class="demo-card"><span class="demo-step">STEP 01 · 상세페이지 등록</span><div class="demo-product"><img id="product-image" alt="프로젝트 대표 이미지"><div><strong id="product-name">프로젝트</strong><small id="product-subtitle">상세페이지가 등록되었습니다.</small><span class="demo-success" id="detail-saved">✓ 상세페이지 저장 완료</span></div></div><div class="demo-row"><a class="btn btn-outline" id="public-detail-link" href="funding-detail.html">공개 상세페이지 보기 ↗</a><span class="demo-status">상세페이지 연결 완료</span></div></section>
+  <section class="demo-card" id="funding-card"><span class="demo-step">STEP 02 · 펀딩 진행</span><h2>서포터의 참여로 목표를 달성했어요</h2><div class="demo-progress-head"><span>펀딩 달성률</span><strong id="funding-percent">0%</strong></div><div class="demo-track" role="progressbar" aria-label="펀딩 달성률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="funding-bar"></i></div><p class="demo-state" id="funding-state">펀딩이 진행 중입니다.</p></section>
+  <section class="demo-card demo-hidden" id="meeting-card"><span class="demo-step">STEP 03 · 내부 검토 및 미팅</span><h2>내부 공유용 레시피와 미팅 일정을 입력해 주세요</h2><p>목표 달성 후에만 신세계푸드 내부 담당자와 공유할 레시피 정보를 입력할 수 있어요.</p><form class="meeting-form" id="meeting-form"><label>내부 공유 레시피<textarea id="internal-recipe" placeholder="재료 배합, 제조 순서, 테스트 시 참고할 내용을 입력해 주세요." required></textarea></label><div class="demo-caution">주의사항 · 입력한 레시피는 미팅 검토를 위한 내부 자료로 사용됩니다. 미팅이 성사되지 않거나 상품화 협의가 중단되면 해당 레시피 정보는 내부 절차에 따라 폐기 처리됩니다.</div><label>희망 미팅 날짜<input id="meeting-date" type="date" required></label><label>미팅 전달 메모<textarea id="meeting-note" placeholder="가능한 시간대나 미팅 방식 등 전달할 내용을 적어 주세요."></textarea></label><button class="btn btn-gold" type="submit">미팅 일정 전달하기</button></form><p class="demo-hidden" id="meeting-confirmation"><span class="demo-success">✓ 미팅 날짜가 확정되었습니다.</span> <strong id="confirmed-date"></strong></p></section>
+</main>
+<footer class="footer"><span>© FOODiing · 맛있는 펀딩</span><nav aria-label="푸터 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a></nav></footer>
+</div>
+<script src="script.js"></script>
+<script>
+(() => {
+  const maker = JSON.parse(localStorage.getItem('foodiing-project-maker') || 'null');
+  const detail = JSON.parse(localStorage.getItem('foodiing-project-detail') || 'null');
+  if (!maker || !detail) { alert('먼저 프로젝트 정보와 상세페이지를 저장해 주세요.'); location.replace('project-start.html'); return; }
+  document.querySelector('#product-name').textContent = detail.title || maker.productName;
+  document.querySelector('#product-subtitle').textContent = detail.subtitle || maker.mainCategory;
+  if (detail.images && detail.images.main) document.querySelector('#product-image').src = detail.images.main;
+  const link = new URL('funding-detail.html', location.href);
+  link.searchParams.set('makerProject', '1');
+  document.querySelector('#public-detail-link').href = link.href;
+  const bar = document.querySelector('#funding-bar');
+  const percent = document.querySelector('#funding-percent');
+  const progress = document.querySelector('[role="progressbar"]');
+  const fundingState = document.querySelector('#funding-state');
+  setTimeout(() => { bar.style.width = '100%'; progress.setAttribute('aria-valuenow', '100'); percent.textContent = '100%'; }, 450);
+  setTimeout(() => {
+    fundingState.innerHTML = '<span class="demo-success">✓ 펀딩 목표 100% 달성</span> · 내부 검토 단계로 이동합니다.';
+    alert('펀딩이 완료되었습니다.');
+    document.querySelector('#meeting-card').classList.remove('demo-hidden');
+    document.querySelector('#meeting-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 2900);
+  const date = document.querySelector('#meeting-date');
+  date.min = new Date().toISOString().slice(0, 10);
+  document.querySelector('#meeting-form').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!event.currentTarget.reportValidity()) return;
+    const meetingDate = new Date(`${date.value}T00:00:00`);
+    const formattedDate = new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }).format(meetingDate);
+    localStorage.setItem('foodiing-project-meeting', JSON.stringify({ recipe: document.querySelector('#internal-recipe').value.trim(), date: date.value, note: document.querySelector('#meeting-note').value.trim() }));
+    event.currentTarget.classList.add('demo-hidden');
+    document.querySelector('#confirmed-date').textContent = formattedDate;
+    document.querySelector('#meeting-confirmation').classList.remove('demo-hidden');
+    alert(`미팅 날짜가 확정되었습니다.\n${formattedDate}`);
+  });
+})();
+</script>
+</body>
+</html>

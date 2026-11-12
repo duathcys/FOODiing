@@ -226,7 +226,7 @@
     try {
       localStorage.setItem('foodiing-project-detail', JSON.stringify(detailData));
       detailMessage.textContent = '펀딩 상세페이지 정보가 저장되었습니다.';
-      window.scrollTo({ top: document.querySelector('#detail-form').offsetTop, behavior: 'smooth' });
+      window.location.href = 'project-demo.html';
     } catch (error) {
       detailMessage.textContent = '브라우저 저장 공간이 부족합니다. 이미지 수나 용량을 줄여 주세요.';
     }

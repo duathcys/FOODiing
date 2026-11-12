@@ -92,6 +92,34 @@ if (project) {
   document.querySelector('#story-lead').textContent = `${project.description}. ${project.title}을 더 많은 분과 나누기 위해 준비한 FOODiing 프로젝트입니다.`;
 }
 
+// Maker-created demo projects use the same public detail page with locally saved content.
+const makerDemo = new URLSearchParams(window.location.search).get('makerProject') === '1'
+  ? JSON.parse(localStorage.getItem('foodiing-project-maker') || 'null') : null;
+const makerDetail = makerDemo ? JSON.parse(localStorage.getItem('foodiing-project-detail') || 'null') : null;
+if (makerDemo && makerDetail) {
+  document.title = `${makerDetail.title || makerDemo.productName} | FOODiing`;
+  document.querySelector('#detail-title').textContent = makerDetail.title || makerDemo.productName;
+  document.querySelector('#detail-category').textContent = makerDemo.mainCategory || '푸드';
+  document.querySelector('#detail-badge').textContent = makerDemo.mainCategory || 'NEW PROJECT';
+  document.querySelector('#detail-description').textContent = makerDetail.subtitle || makerDetail.description || '';
+  document.querySelector('#detail-maker').textContent = makerDemo.representative || 'FOODiing 메이커';
+  document.querySelector('#maker-profile-name').textContent = makerDemo.representative || 'FOODiing 푸드 메이커';
+  if (makerDetail.images && makerDetail.images.main) {
+    document.querySelector('#detail-image').src = makerDetail.images.main;
+    document.querySelector('#story-image').src = makerDetail.images.main;
+  }
+  document.querySelector('#detail-image').alt = makerDetail.title || makerDemo.productName;
+  document.querySelector('#story-lead').textContent = makerDetail.description || makerDetail.story || makerDetail.subtitle || '';
+  document.querySelector('#detail-funding-text').textContent = '100% 달성';
+  document.querySelector('#aside-funding').textContent = '100% 달성';
+  document.querySelector('#detail-remaining').textContent = '목표 달성';
+  document.querySelector('#aside-remaining').textContent = '목표 달성';
+  document.querySelector('#mobile-funding').textContent = '100%';
+  document.querySelector('#detail-current-amount').textContent = `${Math.round(makerDemo.goalAmount || 0).toLocaleString('ko-KR')}원`;
+  document.querySelector('#detail-progress-bar').style.width = '100%';
+  document.querySelectorAll('.detail-aside .detail-progress i').forEach(bar => bar.style.width = '100%');
+}
+
 function supportProject() {
   document.querySelector('#reward-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
