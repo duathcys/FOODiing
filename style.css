@@ -1102,6 +1102,7 @@ main { flex: 1; }
 .pl-table tr.sum td { font-weight: 800; border-bottom-color: var(--line-strong); }
 .pl-table tr:last-child td { color: var(--red); }
 .pl-table[hidden] { display: none; }
+#pl-table { display: none !important; }
 
 /* story page */
 .story-page { max-width: 860px; margin: 0 auto; padding: 0 var(--gutter) 70px; }
