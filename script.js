@@ -41,6 +41,11 @@ window.foodiingToast = function (message, title) {
     });
   }
 
+  /* ---------- Brand story link ---------- */
+  document.querySelectorAll('a[href="introduction.html#story"], a[href="index.html#story"]').forEach(function (link) {
+    if (link.closest('#site-header')) link.setAttribute('href', 'story.html');
+  });
+
   /* ---------- Signed-in account in the shared header ---------- */
   if (header) {
     var currentUser = null;
