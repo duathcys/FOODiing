@@ -25,7 +25,12 @@
     <button class="btn btn-gold" type="submit">미팅 일정 전달하기</button><div class="message" id="form-message" aria-live="polite"></div>
   </form>
   <div class="wait-box hidden" id="wait-box"><span class="spinner" aria-hidden="true"></span><div><strong>내부 담당자와 일정을 협의하고 있어요</strong><p>잠시만 기다려 주세요.</p></div></div>
-  <div class="hidden" id="done-box"><span class="demo-step">미팅 일정 확정</span><h2>내부 담당자와 미팅 일정이 협의되었어요</h2><strong class="confirm-date" id="confirmed-date"></strong><p id="confirmed-from"></p><div class="story-cta"><a class="btn btn-gold" href="story.html">아이디어 제안자 및 브랜드 이야기 보기</a><a class="btn btn-ghost" href="index.html">홈으로</a></div></div></section>
+  <div class="hidden" id="done-box"><span class="demo-step">미팅 일정 확정</span><h2>내부 담당자와 미팅 일정이 협의되었어요</h2><strong class="confirm-date" id="confirmed-date"></strong><p id="confirmed-from"></p>
+    <div class="journey-status" id="journey-status" aria-live="polite"><span class="demo-step">상품화 진행</span><strong id="journey-title">내부 일정 협의가 완료되었습니다</strong><p id="journey-description">상품 생산을 준비하고 있어요.</p><div class="journey-track"><i id="journey-progress"></i></div></div>
+    <figure class="package-reveal hidden" id="package-reveal"><img src="dubai-package-transparent.png" alt="두바이 쫀득쿠키 패키지 앞면과 뒷면"><figcaption>FOODiing 상품 생산 시안</figcaption></figure>
+    <div class="qr-connect hidden" id="qr-connect" aria-live="polite"><div class="scan-frame" aria-hidden="true"><i></i></div><div><strong id="qr-connect-title">QR 코드를 인식하고 있어요</strong><p id="qr-connect-description">아이디어 제안자 이야기를 불러오고 있습니다.</p></div></div>
+    <div class="story-cta"><a class="btn btn-gold" href="story.html">아이디어 제안자 및 브랜드 이야기 보기</a><a class="btn btn-ghost" href="index.html">홈으로</a></div>
+  </div></section>
 </main>
 <footer class="footer"><span>© FOODiing · 맛있는 펀딩</span><nav aria-label="푸터 메뉴"><a href="introduction.html">소개</a><a href="funding.html">펀딩</a></nav></footer>
 </div>
@@ -58,6 +63,33 @@
       $('#confirmed-from').textContent = `희망하신 ${dates.length}개 날짜 중 내부 담당자와 협의된 일정입니다.`;
       $('#done-box').classList.remove('hidden');
       foodiingToast(`내부 담당자와 ${fmt(picked)}로 미팅 일정이 협의되었습니다.`);
+      const journeyTitle = $('#journey-title');
+      const journeyDescription = $('#journey-description');
+      const journeyProgress = $('#journey-progress');
+      const productName = detail.title || maker.productName || '프로젝트 상품';
+      setTimeout(() => {
+        journeyTitle.textContent = '상품 생산을 준비하고 있어요';
+        journeyDescription.textContent = '내부 검토가 끝나고 상품화 단계로 넘어갑니다.';
+        journeyProgress.style.width = '48%';
+      }, 900);
+      setTimeout(() => {
+        journeyTitle.textContent = `${productName} 상품 생산 중`;
+        journeyDescription.textContent = '상품 패키지 시안을 준비했습니다.';
+        journeyProgress.style.width = '100%';
+      }, 1900);
+      setTimeout(() => {
+        $('#package-reveal').classList.remove('hidden');
+        $('#package-reveal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 3000);
+      setTimeout(() => {
+        $('#qr-connect').classList.remove('hidden');
+        $('#qr-connect').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 5200);
+      setTimeout(() => {
+        $('#qr-connect-title').textContent = 'QR 링크 연결 중입니다';
+        $('#qr-connect-description').textContent = '아이디어 제안자 및 브랜드 이야기 페이지로 이동합니다.';
+      }, 6800);
+      setTimeout(() => { window.location.href = 'story.html'; }, 8500);
     }, 5000);
   });
 })();
